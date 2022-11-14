@@ -4,18 +4,21 @@ import { mapValues, isEqual } from "lodash";
 
 import { checkRequiredValues, exists } from "@static/functions";
 
-import moneyActions, { MoneyActions } from "./money/actions";
-import livesActions, { LivesActions } from "./lives/actions";
+import countersActions, { CountersActions } from "./counters/actions";
+import registryActions, { RegistryActions } from "./registry/actions";
+import settingsActions, { SettingsActions } from "./settings/actions";
 
 //Import and add actions of new states here.
 /**
  * @typedef {Object} AllActions
- * @property {MoneyActions} money
- * @property {LivesActions} lives
+ * @property {CountersActions} counters
+ * @property {RegistryActions} registry
+ * @property {SettingsActions} settings
  */
 const ALL_ACTIONS = {
-  money: moneyActions,
-  lives: livesActions,
+  counters: countersActions,
+  registry: registryActions,
+  settings: settingsActions,
 };
 
 /**

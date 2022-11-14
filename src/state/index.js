@@ -3,12 +3,14 @@ import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
 
 import defaultState from "./defaultState";
 
-import moneyReducer from "./money/reducer";
-import livesReducer from "./lives/reducer";
+import countersReducer from "./counters/reducer";
+import registryReducer from "./registry/reducer";
+import settingsReducer from "./settings/reducer";
 
 const rootReducer = combineReducers({
-  money: moneyReducer,
-  lives: livesReducer,
+  counters: countersReducer,
+  registry: registryReducer,
+  settings: settingsReducer,
 });
 
 export const createComposedStore = () => {

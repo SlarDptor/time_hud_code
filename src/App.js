@@ -1,25 +1,33 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
 
-import { Navigation } from "@common/index";
+import { useGeneralStateReader } from "@state/hooks";
 
-import PAGES_ROUTES_CONFIG from "./pages";
+import { INTERFACES as IFK } from "@static/values/keys";
+
+import Counters from "./interfaces/Counters";
+import Registry from "./interfaces/Registry";
+import NoInterface from "./interfaces/NoInterface";
 
 //Top Manager.
 function App() {
-  const currentPage = useRoutes(PAGES_ROUTES_CONFIG);
+  const gs = useGeneralStateReader("settings");
 
   // React.useEffect(() => {
   //   //Initial and whole-app context processes.
   // }, []);
 
-  return (
-    <>
-      <Navigation />
-      {currentPage}
-      {/* <Footer /> */}
-    </>
-  );
+  const CurrentInterface = selectInterface(gs.settings.currentInterface);
+
+  return <>{CurrentInterface ? <CurrentInterface /> : <NoInterface />}</>;
+}
+
+function selectInterface(currentInterface) {
+  switch (currentInterface) {
+    case IFK.COUNTERS:
+      return Counters;
+    case IFK.REGISTRY:
+      return Registry;
+  }
 }
 
 export default App;

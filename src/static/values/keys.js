@@ -13,14 +13,16 @@ export const BREAKPOINTS = {
   SMALL_PHONE: "smallPhone", //ss (super small)
 };
 
-export const PAGES = {
-  HOME: "home",
-  REDUX_EXAMPLE: "reduxExample",
-  NOT_FOUND: "notFound",
+export const ACTIVITY_CATEGORIES = {
+  SANA: "sana",
+  PROY: "proy",
+  BICI: "bici",
+  TD: "td",
+  ENTR: "entr",
+  VIDA: "vida",
 };
 
-export const MONEY_STATE = {
-  FREE_USE: "freeUse",
-  FROZEN: "frozen",
-  WATCHED: "watched",
+export const INTERFACES = {
+  COUNTERS: "counters",
+  REGISTRY: "registry",
 };

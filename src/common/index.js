@@ -19,7 +19,6 @@ import w3 from "./general/StdWebElements/BgContainer";
 import w4 from "./general/StdWebElements/ValidityNotification";
 
 //Your project-specific Components imports.
-import a from "./Navigation";
 
 //General purpose Components exports. Keep them separated to ease updates.
 export const CuteInput = c1;
@@ -41,4 +40,3 @@ export const BgContainer = w3;
 export const ValidityNotification = w4;
 
 //Your project-specific Components exports.
-export const Navigation = a;
