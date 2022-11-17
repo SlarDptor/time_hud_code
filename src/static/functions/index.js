@@ -32,7 +32,7 @@ import s1 from "./general/strings/splitAndFilter";
 import s2 from "./general/strings/includesGroup";
 
 //Your project-specific functions imports.
-//
+import * as operations from "./operations";
 
 //General purpose functions exports. Keep them separated to ease updating.
 export const checkItems = a1;
@@ -66,4 +66,4 @@ export const splitAndFilter = s1;
 export const includesGroup = s2;
 
 //Your project-specific functions exports.
-//
+export const ops = operations;

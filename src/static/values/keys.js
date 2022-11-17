@@ -14,6 +14,7 @@ export const BREAKPOINTS = {
 };
 
 export const ACTIVITY_CATEGORIES = {
+  LEV: "lev",
   SANA: "sana",
   PROY: "proy",
   BICI: "bici",
@@ -25,4 +26,5 @@ export const ACTIVITY_CATEGORIES = {
 export const INTERFACES = {
   COUNTERS: "counters",
   REGISTRY: "registry",
+  NO_INTERFACE: "noInterface",
 };

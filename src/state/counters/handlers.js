@@ -1,4 +1,6 @@
-import defaultState from "../defaultState";
+import { ops } from "@static/functions";
+
+import { DEFAULT_GENERAL_STATE } from "../defaultState";
 
 /**@param {import("../defaultState").CountersState} newState */
 function getHandlers(prevState, newState) {
@@ -6,23 +8,20 @@ function getHandlers(prevState, newState) {
 
   return {
     clean() {
-      return defaultState.counters;
+      return DEFAULT_GENERAL_STATE.counters;
     },
 
     //
 
-    addTime({ categoryKey, addingTime }) {
-      newState[categoryKey].done += addingTime;
+    setCountersMaxes({ countersMaxes }) {
+      for (let ctg in countersMaxes) newState[ctg].max = countersMaxes[ctg];
+
       return newState;
     },
 
-    substractTime({ categoryKey, substractingTime }) {
-      newState[categoryKey].done -= substractingTime;
-      return newState;
-    },
+    setCountersDone({ countersDone }) {
+      for (let ctg in countersDone) newState[ctg].done = countersDone[ctg];
 
-    setCounter({ categoryKey, newCounter }) {
-      newState[categoryKey] = newCounter;
       return newState;
     },
   };

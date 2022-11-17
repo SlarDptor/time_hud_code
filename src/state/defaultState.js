@@ -1,8 +1,12 @@
 // This file contains the state structure and keys, as well as the default values for each field.
 
-import { mapValues } from "lodash";
+import { isEmpty, mapValues } from "lodash";
 
-import { CATEGORIES_NAMES } from "@static/values/config";
+import { exists } from "@static/functions";
+
+//prettier-ignore
+import { INTERFACES as IFK } from "@static/values/keys";
+import { COUNTERS_PARAMS } from "@static/values/config";
 
 /**Error thrown when some actions were defined but not handled by the reducer.
  * @param {string} stateName @param {string} type */
@@ -24,14 +28,14 @@ export function unhandledActionError(stateName, type) {
  */
 
 /**@type {GeneralState} */
-const DEFAULT_GENERAL_STATE = {
+export const DEFAULT_GENERAL_STATE = {
   registry: [],
-  counters: mapValues(CATEGORIES_NAMES, () => ({
-    done: 0,
-    max: 0,
+  counters: mapValues(COUNTERS_PARAMS, () => ({
+    max: "0:00",
+    done: "0:00",
   })),
   settings: {
-    currentInterface: null,
+    currentInterface: IFK.NO_INTERFACE,
     DNL: false,
     DSE: false,
   },
@@ -55,5 +59,12 @@ const DEFAULT_GENERAL_STATE = {
 export default (() => {
   // Here do changes and processes on the default state before exporting.
 
-  return DEFAULT_GENERAL_STATE;
+  // Load general state from localStorage if it's there. Otherwise, load the default general state.
+  const savedGS = JSON.parse(localStorage.getItem("generalState"));
+
+  var initialState;
+  if (exists(savedGS) && !isEmpty(savedGS)) initialState = savedGS;
+  else initialState = DEFAULT_GENERAL_STATE;
+
+  return initialState;
 })();

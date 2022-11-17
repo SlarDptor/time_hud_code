@@ -52,13 +52,12 @@ function useObjectState(initialState = null) {
    * @param {boolean} allowNewFields If `true`, the merging object may contain new fields (the current state doesn't have) that will be added.
    */
   function merge(partialState, allowNewFields) {
+    var check = { partialState, type: "object" };
+    if (allowNewFields) check.onlyFields = Object.keys(state);
+
     checkRequiredValues([
       { allowNewFields, req: false, type: "boolean" },
-      {
-        partialState,
-        type: "object",
-        onlyFields: allowNewFields ? undefined : Object.keys(state),
-      },
+      check,
     ]);
 
     setState((prev) => mergeObjects(cloneDeep(prev), partialState));

@@ -7,11 +7,19 @@ import countersReducer from "./counters/reducer";
 import registryReducer from "./registry/reducer";
 import settingsReducer from "./settings/reducer";
 
-const rootReducer = combineReducers({
+const combinedReducers = combineReducers({
   counters: countersReducer,
   registry: registryReducer,
   settings: settingsReducer,
 });
+
+function rootReducer(previousState, action) {
+  const newState = combinedReducers(previousState, action);
+
+  localStorage.setItem("generalState", JSON.stringify(newState));
+
+  return newState;
+}
 
 export const createComposedStore = () => {
   const composeEnhancers =

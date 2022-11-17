@@ -1,4 +1,4 @@
-import defaultState from "../defaultState";
+import { DEFAULT_GENERAL_STATE } from "../defaultState";
 
 /**@param {import("../defaultState").SettingsState} newState */
 function getHandlers(prevState, newState) {
@@ -6,7 +6,7 @@ function getHandlers(prevState, newState) {
 
   return {
     clean() {
-      return defaultState.settings;
+      return DEFAULT_GENERAL_STATE.settings;
     },
 
     //

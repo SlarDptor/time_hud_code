@@ -1,4 +1,4 @@
-import defaultState from "../defaultState";
+import { DEFAULT_GENERAL_STATE } from "../defaultState";
 
 /**@param {import("../defaultState").RegistryState} newState */
 function getHandlers(prevState, newState) {
@@ -6,13 +6,18 @@ function getHandlers(prevState, newState) {
 
   return {
     clean() {
-      return defaultState.registry;
+      return DEFAULT_GENERAL_STATE.registry;
     },
 
     //
 
     addRecord({ newRecord }) {
       newState.push(newRecord);
+      return newState;
+    },
+
+    removeRecord({ recordIndex }) {
+      newState.splice(recordIndex, 1);
       return newState;
     },
 

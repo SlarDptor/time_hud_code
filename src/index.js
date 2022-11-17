@@ -5,12 +5,11 @@ import "./index.css";
 
 import { createComposedStore } from "@state/index";
 
-import App from "./App";
+import App from "./Main";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ReduxProvider store={createComposedStore()}>
-      {/* DEVELOPMENT MODE. REPLACE `DevApp` WITH 'App' WHEN USING THIS TEMPLATE */}
       <App />
     </ReduxProvider>
   </React.StrictMode>

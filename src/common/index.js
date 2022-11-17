@@ -13,8 +13,6 @@ import c9, {
 
 import g1 from "./general/AsyncMounter";
 
-import w1 from "./general/StdWebElements/NavigationBar";
-import w2 from "./general/StdWebElements/PageContainer";
 import w3 from "./general/StdWebElements/BgContainer";
 import w4 from "./general/StdWebElements/ValidityNotification";
 
@@ -34,8 +32,6 @@ export const useSlidingListState = c9a;
 
 export const AsyncMounter = g1;
 
-export const NavigationBar = w1;
-export const PageContainer = w2;
 export const BgContainer = w3;
 export const ValidityNotification = w4;
 

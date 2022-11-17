@@ -15,6 +15,8 @@ export default function reducer(prevState = defaultState.registry, action) {
 
     case TYPES.ADD_RECORD:
       return handlers.addRecord(action.params);
+    case TYPES.REMOVE_RECORD:
+      return handlers.removeRecord(action.params);
     case TYPES.SET_RECORD:
       return handlers.setRecord(action.params);
 

@@ -13,12 +13,10 @@ export default function reducer(prevState = defaultState.counters, action) {
     case TYPES.CLEAN:
       return handlers.clean();
 
-    case TYPES.ADD_TIME:
-      return handlers.addTime(action.params);
-    case TYPES.SUBSTRACT_TIME:
-      return handlers.substractTime(action.params);
-    case TYPES.SET_COUNTER:
-      return handlers.setCounter(action.params);
+    case TYPES.SET_COUNTERS_MAXES:
+      return handlers.setCountersMaxes(action.params);
+    case TYPES.SET_COUNTERS_DONE:
+      return handlers.setCountersDone(action.params);
 
     default:
       throw unhandledActionError(STATE_NAME, action.type);

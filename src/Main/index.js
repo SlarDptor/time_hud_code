@@ -4,13 +4,14 @@ import { useGeneralStateReader } from "@state/hooks";
 
 import { INTERFACES as IFK } from "@static/values/keys";
 
-import Counters from "./interfaces/Counters";
-import Registry from "./interfaces/Registry";
-import NoInterface from "./interfaces/NoInterface";
+import Counters from "../interfaces/Counters";
+import Registry from "../interfaces/Registry";
+import NoInterface from "../interfaces/NoInterface";
 
-//Top Manager.
+import TopTabs from "./TopTabs";
+
 function App() {
-  const gs = useGeneralStateReader("settings");
+  const gs = useGeneralStateReader("settings.currentInterface");
 
   // React.useEffect(() => {
   //   //Initial and whole-app context processes.
@@ -18,8 +19,19 @@ function App() {
 
   const CurrentInterface = selectInterface(gs.settings.currentInterface);
 
-  return <>{CurrentInterface ? <CurrentInterface /> : <NoInterface />}</>;
+  return (
+    <>
+      <TopTabs />
+      <div className={STYLES.currentInterfaceCt}>
+        <CurrentInterface />
+      </div>
+    </>
+  );
 }
+
+const STYLES = {
+  currentInterfaceCt: "pt-16 pb-8 px-4 flex flex-col",
+};
 
 function selectInterface(currentInterface) {
   switch (currentInterface) {
@@ -27,6 +39,9 @@ function selectInterface(currentInterface) {
       return Counters;
     case IFK.REGISTRY:
       return Registry;
+
+    default:
+      return NoInterface;
   }
 }
 
