@@ -70,6 +70,15 @@ function CuteAlert({
   //prettier-ignore
   const styles = useCustomizableStyles(STYLES, customStyles);
 
+  var renderingBody;
+  //prettier-ignore
+  if (typeOf(body, "string"))
+    renderingBody = <p className={styles.body}>{body}</p>;
+  else if (typeOf(body, "object") && body.Component)
+    renderingBody = <body.Component closeAlert={close} {...body} />;
+  else
+    renderingBody = body;
+
   return (
     <CuteModal visible={visible} onClose={onModalClose}>
       {Icon && <Icon className={styles.icon} />}
@@ -78,7 +87,7 @@ function CuteAlert({
       ) : (
         title
       )}
-      {typeOf(body, "string") ? <p className={styles.body}>{body}</p> : body}
+      {renderingBody}
 
       <div className={styles.buttonsCt}>
         {button && (
@@ -136,11 +145,28 @@ const alertDOMRoot = (() => {
 var displayChain = 0;
 
 /**
- * Imperatively displays a CuteAlert component.
+ * A Cute and customizable Alert made with `CuteModal` to quickly display something easy and fast without
+ * losing customization.
+ *
+ * ### Custom Body.
+ *
+ * A custom body can be used. To be able to close de alert from inside of it, pass an object
+ * containing a Component and it's props, allowing it to receive the `closeAlert` callback.
+ *
+ * ```
+ * displayCuteAlert({
+ *    Icon: SomeIcon,
+ *    title: "Do something custom",
+ *    body: { Component: MyComponent, ...someProps },
+ * })
+ * ```
+ *
+ * `MyComponent` will receive `closeModal` as a prop.
+ *
  * @param {Object} props
  * @param {React.Component} props.Icon An Icon component.
  * @param {string | JSX.Element} props.title The Alert text title.
- * @param {string | JSX.Element} props.body The Alert text body.
+ * @param {string | {Component: React.Component, ...props: any} | JSX.Element} props.body The Alert text body.
  * @param {NotificationButton} props.button The button parameters. By default, the text is "Accept" and it closes the Alert.
  * @param {NotificationButton} props.secondButton The second button parameters. This button can't exist alone. By default, the text is "Cancel" and it closes the Alert.
  * @param {(reason: "default" | "button" | "secondButton") => void} props.onClose Callback to execute when the Alert is closed. It receives a param with the closing reason: by default behavior (clicking outside or pressing Escape), by the first button or by the second button.

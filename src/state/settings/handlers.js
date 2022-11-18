@@ -15,6 +15,16 @@ function getHandlers(prevState, newState) {
       newState[settingKey] = newValue;
       return newState;
     },
+
+    addMinutes({ minutes }) {
+      newState.reassigningMinutes += minutes;
+      return newState;
+    },
+
+    takeMinutes({ minutes }) {
+      newState.reassigningMinutes -= minutes;
+      return newState;
+    },
   };
 }
 

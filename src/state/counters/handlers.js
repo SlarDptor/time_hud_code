@@ -24,6 +24,12 @@ function getHandlers(prevState, newState) {
 
       return newState;
     },
+
+    setMax({ categoryKey, maxTime }) {
+      newState[categoryKey].max = maxTime;
+
+      return newState;
+    },
   };
 }
 

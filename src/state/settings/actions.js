@@ -7,17 +7,25 @@ export const TYPES = mapValues({
     
   CLEAN: 0, //Simple Actions
 
-  SET_SETTING: 0, //Parameterized Actions
+  SET_SETTING: 0, ADD_MINUTES: 0, TAKE_MINUTES: 0 //Parameterized Actions
 
 }, (v, k) => `${STATE_NAME.toUpperCase()}_${k}` );
 
-/**@type {Registry} */
+/**@type {SettingsActions} */
 const ACTION_CREATORS = {
   clean: () => ({ type: TYPES.CLEAN }),
 
   setSetting: (settingKey, newValue) => ({
     type: TYPES.SET_SETTING,
     params: { settingKey, newValue },
+  }),
+  addMinutes: (minutes) => ({
+    type: TYPES.ADD_MINUTES,
+    params: { minutes },
+  }),
+  takeMinutes: (minutes) => ({
+    type: TYPES.TAKE_MINUTES,
+    params: { minutes },
   }),
 };
 
@@ -28,5 +36,7 @@ export default ACTION_CREATORS;
 /**
  * @typedef {Object} SettingsActions
  * @property {() => any} clean Cleans the settings.
- * @property {(settingKey, newValue) => any} setSetting sets a new value to the specified setting.
+ * @property {(settingKey, newValue) => any} setSetting Sets a new value to the specified setting.
+ * @property {(minutes) => any} addMinutes Adds the specified number of minutes to the reassigningMinutes.
+ * @property {(minutes) => any} takeMinutes Reduces the specified number of minutes from the reassigningMinutes.
  */

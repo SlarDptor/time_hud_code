@@ -38,13 +38,14 @@ export const DEFAULT_GENERAL_STATE = {
     currentInterface: IFK.NO_INTERFACE,
     DNL: false,
     DSE: false,
+    reassigningMinutes: 0,
   },
 };
 
 /**
  * @typedef {Array<TimeRecord>} RegistryState
  * @typedef {{[category: string]: CategoryCounter}} CountersState
- * @typedef {{DNL: boolean, DSE: boolean, currentInterface: string}} SettingsState
+ * @typedef {{DNL: boolean, DSE: boolean, currentInterface: string, reassigningMinutes: number}} SettingsState
  *
  * @typedef {Object} TimeRecord
  * @property {string} time The time at which the activity began.

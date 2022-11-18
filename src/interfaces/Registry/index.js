@@ -1,15 +1,16 @@
 import React from "react";
 import { BiPlus } from "react-icons/bi";
 import { IoReloadOutline, IoWarningOutline, IoBed } from "react-icons/io5";
+import { BsDownload, BsUpload } from "react-icons/bs";
 
 import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
 import { ops } from "@static/functions";
 import { CuteModal, displayCuteAlert, useModalState } from "@common/index";
 
-import { CATEGORIES_NAMES as CGN } from "@static/values/config";
-
 import RegistryModal from "./Modal";
 import RegistryWakeModal from "./WakeModal";
+import TextExport from "./Out/TextExport";
+import TextImport from "./Out/TextImport";
 
 //Interface with fully static styles: elements styles are never gonna change with events and styles are
 //statically defined.
@@ -17,21 +18,22 @@ import RegistryWakeModal from "./WakeModal";
 function RegistryInterface() {
   const gs = useGeneralStateReader("registry");
   const updateGS = useGeneralStateUpdator("registry");
-  const modal = useModalState();
+  const editModal = useModalState();
 
   function onAddRecord() {
-    modal.open();
+    editModal.open();
   }
 
   function onEditRecord(recordIndex) {
     const record = gs.registry[recordIndex];
 
-    if (recordIndex == 0) modal.open({ wakeRecord: record }, { wake: true });
-    else modal.open({ recordIndex, editingRecord: record });
+    if (recordIndex == 0)
+      editModal.open({ wakeRecord: record }, { wake: true });
+    else editModal.open({ recordIndex, editingRecord: record });
   }
 
   function onAddWakeRecord() {
-    modal.open(null, { wake: true });
+    editModal.open(null, { wake: true });
   }
 
   function reload() {
@@ -47,6 +49,27 @@ function RegistryInterface() {
         },
       },
       customStyles: STYLES.reloadAlert,
+    });
+  }
+
+  function exportText() {
+    displayCuteAlert({
+      Icon: BsDownload,
+      title: "Exportar en Texto",
+      body: <TextExport registry={gs.registry} />,
+      customStyles: STYLES.exportAlert,
+    });
+  }
+
+  function importText() {
+    displayCuteAlert({
+      Icon: BsUpload,
+      title: "Importar desde Texto",
+      body: {
+        Component: TextImport,
+        onSubmit: (newRegistry) => updateGS.registry.replace(newRegistry),
+      },
+      customStyles: STYLES.exportAlert,
     });
   }
 
@@ -105,7 +128,9 @@ function RegistryInterface() {
                 key={index}
               >
                 <p className={STYLES.timeColumn}>{record.time}</p>
-                <p className={STYLES.beginColumn}>{getName(record)}</p>
+                <p className={STYLES.beginColumn}>
+                  {ops.getRecordName(record)}
+                </p>
                 <p className={STYLES.intervalColumn}>
                   {ops.getRecordInterval(record, gs.registry[index + 1])}
                 </p>
@@ -113,6 +138,15 @@ function RegistryInterface() {
             ))}
           </div>
         )}
+
+        <div className={STYLES.outButtonsCt}>
+          <button onClick={exportText} className={STYLES.outButton}>
+            <BsDownload className={STYLES.outButtonIcon} /> Exportar
+          </button>
+          <button onClick={importText} className={STYLES.outButton}>
+            <BsUpload className={STYLES.outButtonIcon} /> Importar
+          </button>
+        </div>
       </div>
 
       {!isEmpty && (
@@ -122,11 +156,14 @@ function RegistryInterface() {
         </p>
       )}
 
-      <CuteModal customDirSty={{ ct: STYLES.modal }} {...modal.cuteModalProps}>
-        {modal.wake ? (
-          <RegistryWakeModal {...modal.childrenProps} />
+      <CuteModal
+        customDirSty={{ ct: STYLES.modal }}
+        {...editModal.cuteModalProps}
+      >
+        {editModal.wake ? (
+          <RegistryWakeModal {...editModal.childrenProps} />
         ) : (
-          <RegistryModal {...modal.childrenProps} />
+          <RegistryModal {...editModal.childrenProps} />
         )}
       </CuteModal>
     </>
@@ -142,26 +179,30 @@ const STYLES = {
   reloadIcon: "mr-1",
 
   buttons: "mt-5 flex",
-  addButton: "shrink-0 w-7/12 text-default flex items-center justify-center mr-1 rounded-md border-1 border-sky-500 text-sky-500 text-slate-100 pr-2 py-2 focus:bg-sky-500 focus:text-slate-100 disabled:border-slate-500 disabled:text-slate-500",
-  minusButton: "grow flex items-center text-default justify-center ml-1 rounded-md border-1 border-yellow-500 text-yellow-500 text-slate-100 py-2 focus:bg-yellow-500 focus:text-slate-100 disabled:border-slate-500 disabled:text-slate-500",
+  addButton: "shrink-0 w-7/12 text-default flex items-center justify-center mr-1 rounded-md border-1 border-sky-500 text-sky-500 text-slate-100 pr-2 py-2 focus:bg-sky-500 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
+  minusButton: "grow flex items-center text-default justify-center ml-1 rounded-md border-1 border-yellow-500 text-yellow-500 text-slate-100 py-2 focus:bg-yellow-500 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
   buttonPlus: "w-6 h-6 mr-1",
 
-  listCt: "mt-4",
+  listCt: "mt-4 pb-10",
   header: "text-default text-slate-700 flex justify-center items-center border-t-1 border-b-1 border-emerald-400 py-2 mb-2",
 
   timeColumn: "w-5/24 shrink-0 text-center ",
   beginColumn: "grow text-center ",
   intervalColumn: "w-5/24 shrink-0 text-center ",
 
-  addWake: "mt-10 flex justify-center items-center mx-auto text-slate-500 border-1 rounded-md border-slate-300 px-6 py-2 text-lg focus:text-slate-100 focus:bg-gray-500",
+  addWake: "mt-10 flex justify-center items-center mx-auto text-slate-500 border-1 rounded-md border-sky-400 px-6 py-2 text-lg focus:text-slate-100 focus:bg-gray-500",
   addWakeIcon: "text-3xl mr-4",
 
   listContent: "flex flex-col-reverse",
   row: "flex text-slate-700 text-light py-2 cursor-pointer focus:bg-slate-100 hover:bg-slate-100",
 
-  bottom: "fixed w-screen bottom-0 left-0 py-2 px-4 border-t-1 border-sky-500 text-lg text-light text-center tracking-wide text-slate-700",
+  bottom: "fixed w-screen bottom-0 left-0 py-2 px-4 bg-white border-t-1 border-sky-500 text-lg text-light text-center tracking-wide text-slate-700",
   endTime: "text-yellow-700 text-default",
   remainingTime: "text-sky-500 text-default",
+
+  outButtonsCt: "flex justify-center mt-10 pt-6 border-t-1 border-slate-200",
+  outButton: "flex mx-2 justify-center items-center px-4 border-1 border-slate-300 py-2 rounded-md text-slate-500 focus:bg-slate-500 focus:text-slate-100",
+  outButtonIcon: "mr-2 text-xl",
 
   modal: "bg-white",
 
@@ -169,16 +210,11 @@ const STYLES = {
     title: "text-slate-500 text-light",
     icon: "text-red-500",
     rightButton: "text-red-500 border-red-500 hover:bg-red-500 hover:text-slate-100",
+  },
+  exportAlert: {
+    title: "text-slate-500 text-light",
+    icon: "text-slate-500",
   }
 };
-
-function getName({ name, categoryKey }) {
-  const categoryName = CGN[categoryKey];
-
-  if (name == categoryName) return name;
-  else if (!name) return categoryName;
-  else if (!categoryName) return name;
-  else return `${name} (${categoryName})`;
-}
 
 export default RegistryInterface;

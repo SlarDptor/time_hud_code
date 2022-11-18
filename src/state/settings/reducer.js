@@ -15,6 +15,10 @@ export default function reducer(prevState = defaultState.settings, action) {
 
     case TYPES.SET_SETTING:
       return handlers.setSetting(action.params);
+    case TYPES.ADD_MINUTES:
+      return handlers.addMinutes(action.params);
+    case TYPES.TAKE_MINUTES:
+      return handlers.takeMinutes(action.params);
 
     default:
       throw unhandledActionError(STATE_NAME, action.type);

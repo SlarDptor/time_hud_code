@@ -1,7 +1,11 @@
 import moment from "moment";
 import { mapValues } from "lodash";
 
-import { COUNTERS_PARAMS, DAY_DURATION } from "@static/values/config";
+import {
+  COUNTERS_PARAMS,
+  DAY_DURATION,
+  CATEGORIES_NAMES,
+} from "@static/values/config";
 
 moment.locale("es", {
   weekdays: [
@@ -23,6 +27,15 @@ export function getToday() {
     dayName: today.format("dddd"),
     date: today.format("DD / MM / YY"),
   };
+}
+
+export function getRecordName({ name, categoryKey }) {
+  const categoryName = CATEGORIES_NAMES[categoryKey];
+
+  if (name == categoryName) return name;
+  else if (!name) return categoryName;
+  else if (!categoryName) return name;
+  else return `${name} (${categoryName})`;
 }
 
 /**Adds two times and returns the result as a time */
@@ -112,6 +125,10 @@ export function toCompleteTime(time) {
  * and 4 numbers "HH:mm" if the hour is 2 digits) of a time */
 export function toSimpleTime(time) {
   return m(time).format("H:mm");
+}
+
+export function toTime(minutes) {
+  return present(moment("00:00", "HH:mm").add(minutes, "minutes"));
 }
 
 //Private functions

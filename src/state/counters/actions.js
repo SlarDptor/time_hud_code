@@ -7,11 +7,11 @@ export const TYPES = mapValues({
     
   CLEAN: 0, //Simple Actions
 
-  SET_COUNTERS_MAXES: 0, SET_COUNTERS_DONE: 0, //Parameterized Actions
+  SET_COUNTERS_MAXES: 0, SET_COUNTERS_DONE: 0, SET_MAX: 0 //Parameterized Actions
 
 }, (v, k) => `${STATE_NAME.toUpperCase()}_${k}` );
 
-/**@type {Registry} */
+/**@type {CountersActions} */
 const ACTION_CREATORS = {
   clean: () => ({ type: TYPES.CLEAN }),
 
@@ -23,6 +23,10 @@ const ACTION_CREATORS = {
     type: TYPES.SET_COUNTERS_DONE,
     params: { countersDone },
   }),
+  setMax: (categoryKey, maxTime) => ({
+    type: TYPES.SET_MAX,
+    params: { categoryKey, maxTime },
+  }),
 };
 
 export default ACTION_CREATORS;
@@ -33,5 +37,7 @@ export default ACTION_CREATORS;
  * @typedef {Object} CountersActions
  * @property {() => any} clean Cleans the counters.
  * @property {(countersMaxes) => any} setCountersMaxes Sets the max time of multiple counters.
- * @property {(countersDone) => any} setCountersDone Sets the done time of multple counters
+ * @property {(countersDone) => any} setCountersDone Sets the done time of multple counters.
+ * @property {(categoryKey, maxTime) => any} setMax Sets the max time of the specified counter.
+ *
  */

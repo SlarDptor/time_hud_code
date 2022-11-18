@@ -11,6 +11,10 @@ function getHandlers(prevState, newState) {
 
     //
 
+    replace({ newRegistry }) {
+      return newRegistry;
+    },
+
     addRecord({ newRecord }) {
       newState.push(newRecord);
       return newState;

@@ -1,5 +1,5 @@
 import React from "react";
-import { chunk } from "lodash";
+import { capitalize, chunk } from "lodash";
 import { BsTrashFill } from "react-icons/bs";
 import { IoWarningOutline } from "react-icons/io5";
 
@@ -81,7 +81,7 @@ function RegistryModal({ closeModal, editingRecord, recordIndex }) {
 
         <CuteInput
           value={values.get.name}
-          onChange={(newName) => values.merge({ name: newName })}
+          onChange={(newName) => values.merge({ name: capitalize(newName) })}
           label="Actividad Iniciada"
           customDirSty={STYLES.nameInput}
         />

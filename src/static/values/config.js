@@ -25,13 +25,13 @@ export const COUNTERS_PARAMS = {
     onDNL: { change: "2:00", sign: "-" },
   },
   [ACK.PROY]: {
-    baseMax: "3:00",
+    baseMax: "3:30",
     onDNL: { change: "1:00", sign: "-" },
-    onDSE: { change: "1:00", sign: "+" },
+    onDSE: { change: "0:30", sign: "+" },
   },
   [ACK.BICI]: {
-    baseMax: "2:00",
-    onDSE: { change: "2:00", sign: "-" },
+    baseMax: "1:30",
+    onDSE: { change: "1:30", sign: "-" },
   },
   [ACK.TD]: {
     baseMax: "2:00",

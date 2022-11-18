@@ -17,6 +17,8 @@ export default function reducer(prevState = defaultState.counters, action) {
       return handlers.setCountersMaxes(action.params);
     case TYPES.SET_COUNTERS_DONE:
       return handlers.setCountersDone(action.params);
+    case TYPES.SET_MAX:
+      return handlers.setMax(action.params);
 
     default:
       throw unhandledActionError(STATE_NAME, action.type);

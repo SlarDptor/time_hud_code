@@ -6,6 +6,7 @@ import { ops } from "@static/functions";
 import { useGeneralStateUpdator } from "@state/hooks";
 
 import { ACTIVITY_CATEGORIES as ACK } from "@static/values/keys";
+import { capitalize } from "lodash";
 
 function RegistryWakeModal({ closeModal, wakeRecord }) {
   const updateGS = useGeneralStateUpdator("registry", "counters");
@@ -38,7 +39,7 @@ function RegistryWakeModal({ closeModal, wakeRecord }) {
 
         <CuteInput
           value={values.get.name}
-          onChange={(newName) => values.merge({ name: newName })}
+          onChange={(newName) => values.merge({ name: capitalize(newName) })}
           label="Nombre"
           customDirSty={STYLES.nameInput}
         />
