@@ -74,16 +74,15 @@ export function calculateCountersMaxTimes({ DNL, DSE }) {
 
 /**Calculates the done time for each activity category counter. */
 export function calculateCountersDoneTime(registry) {
-  var countersDoneTime = {};
+  var countersDoneTime = mapValues(COUNTERS_PARAMS, () => "0:00");
 
-  //Ignore the first Time Record because it's getting up
-  //and the last record which interval can't be calculated.
-  for (let r = 1; r < registry.length - 1; r++) {
+  //Ignore the last record which interval can't be calculated.
+  for (let r = 0; r < registry.length - 1; r++) {
     const record = registry[r];
     const nextRecord = registry[r + 1];
 
     countersDoneTime[record.categoryKey] = addTimes(
-      countersDoneTime[record.categoryKey] || "0:00",
+      countersDoneTime[record.categoryKey],
       getRecordInterval(record, nextRecord)
     );
   }

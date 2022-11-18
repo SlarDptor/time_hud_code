@@ -4,13 +4,12 @@ import { IoReloadOutline, IoWarningOutline, IoBed } from "react-icons/io5";
 
 import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
 import { ops } from "@static/functions";
-import { useObjectState } from "@static/react";
-import { CuteModal, displayCuteAlert } from "@common/index";
+import { CuteModal, displayCuteAlert, useModalState } from "@common/index";
 
 import { CATEGORIES_NAMES as CGN } from "@static/values/config";
-import { ACTIVITY_CATEGORIES as ACK } from "@static/values/keys";
 
 import RegistryModal from "./Modal";
+import RegistryWakeModal from "./WakeModal";
 
 //Interface with fully static styles: elements styles are never gonna change with events and styles are
 //statically defined.
@@ -18,32 +17,21 @@ import RegistryModal from "./Modal";
 function RegistryInterface() {
   const gs = useGeneralStateReader("registry");
   const updateGS = useGeneralStateUpdator("registry");
-  const modalConfig = useObjectState({ record: null, opened: false });
-
-  const isEmpty = gs.registry.length == 0;
+  const modal = useModalState();
 
   function onAddRecord() {
-    modalConfig.replace({ record: null, opened: true });
+    modal.open();
   }
 
   function onEditRecord(recordIndex) {
-    modalConfig.replace({
-      record: { recordIndex, ...gs.registry[recordIndex] },
-      locked: recordIndex == 0,
-      opened: true,
-    });
-  }
+    const record = gs.registry[recordIndex];
 
-  function closeModal() {
-    modalConfig.merge({ opened: false });
+    if (recordIndex == 0) modal.open({ wakeRecord: record }, { wake: true });
+    else modal.open({ recordIndex, editingRecord: record });
   }
 
   function onAddWakeRecord() {
-    modalConfig.replace({
-      record: WAKE_RECORD,
-      locked: true,
-      opened: true,
-    });
+    modal.open(null, { wake: true });
   }
 
   function reload() {
@@ -62,14 +50,15 @@ function RegistryInterface() {
     });
   }
 
+  const isEmpty = gs.registry.length == 0;
+  const today = ops.getToday();
+
   const { endTime, remainingTime } =
     !isEmpty &&
     ops.calculateEndAndRemainingTime(
       gs.registry[0].time, //The first record is always waking up.
       gs.registry.at(-1).time //Last record
     );
-
-  const today = ops.getToday();
 
   return (
     <>
@@ -133,16 +122,12 @@ function RegistryInterface() {
         </p>
       )}
 
-      <CuteModal
-        customDirSty={{ ct: STYLES.modal }}
-        onClose={closeModal}
-        visible={modalConfig.get.opened}
-      >
-        <RegistryModal
-          closeModal={closeModal}
-          editingRecord={modalConfig.get.record}
-          locked={modalConfig.get.locked}
-        />
+      <CuteModal customDirSty={{ ct: STYLES.modal }} {...modal.cuteModalProps}>
+        {modal.wake ? (
+          <RegistryWakeModal {...modal.childrenProps} />
+        ) : (
+          <RegistryModal {...modal.childrenProps} />
+        )}
       </CuteModal>
     </>
   );
@@ -192,13 +177,8 @@ function getName({ name, categoryKey }) {
 
   if (name == categoryName) return name;
   else if (!name) return categoryName;
+  else if (!categoryName) return name;
   else return `${name} (${categoryName})`;
 }
-
-const WAKE_RECORD = {
-  time: null,
-  name: "Levantarse",
-  categoryKey: ACK.LEV,
-};
 
 export default RegistryInterface;

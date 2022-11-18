@@ -14,7 +14,6 @@ export const BREAKPOINTS = {
 };
 
 export const ACTIVITY_CATEGORIES = {
-  LEV: "lev",
   SANA: "sana",
   PROY: "proy",
   BICI: "bici",

@@ -5,7 +5,7 @@ import { sumItems, checkOptionalValues } from "@static/functions";
 import { useIndicatedStyles } from "@static/tailwind";
 import { useObjectState } from "@static/react";
 
-import a from "./useSlidingListState";
+import hook from "./useSlidingListState";
 
 /**
  * Display a List of items that smoothly slide when adding or removing them.
@@ -149,7 +149,7 @@ const ITEM_INDICATORS = [
   { key: "visible", directive: "vi", condition: (p) => !p.visible },
 ];
 
-export const useSlidingListState = a;
+export const useSlidingListState = hook;
 
 /**
  * @typedef {import("@static/tailwind/useIndicatedStyles").Indicator} Indicator

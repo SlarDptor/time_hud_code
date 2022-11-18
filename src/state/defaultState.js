@@ -6,7 +6,7 @@ import { exists } from "@static/functions";
 
 //prettier-ignore
 import { INTERFACES as IFK } from "@static/values/keys";
-import { COUNTERS_PARAMS } from "@static/values/config";
+import { CATEGORIES_NAMES } from "@static/values/config";
 
 /**Error thrown when some actions were defined but not handled by the reducer.
  * @param {string} stateName @param {string} type */
@@ -30,7 +30,7 @@ export function unhandledActionError(stateName, type) {
 /**@type {GeneralState} */
 export const DEFAULT_GENERAL_STATE = {
   registry: [],
-  counters: mapValues(COUNTERS_PARAMS, () => ({
+  counters: mapValues(CATEGORIES_NAMES, () => ({
     max: "0:00",
     done: "0:00",
   })),

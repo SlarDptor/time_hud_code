@@ -96,7 +96,7 @@ const STYLES = {
   minusButton: "grow flex items-center justify-center ml-1 rounded-md bg-yellow-600 text-slate-100 py-2",
   buttonPlus: "w-6 h-6 mr-1",
 
-  listCt: "mt-8 text-lg",
+  listCt: "mt-8",
   header: "text-default text-slate-700 flex justify-center items-center border-t-1 border-b-1 border-purple-400 py-2",
 
   categoryColumn: "w-7/24 shrink-0 text-center text-sky-500 ",

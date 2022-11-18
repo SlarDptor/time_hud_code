@@ -3,6 +3,7 @@ import { chunk } from "lodash";
 import { BsTrashFill } from "react-icons/bs";
 import { IoWarningOutline } from "react-icons/io5";
 
+//prettier-ignore
 import { CuteTimeInput, CuteInput, displayCuteAlert } from "@common/index";
 import { useObjectState } from "@static/react";
 import { ops, exists } from "@static/functions";
@@ -10,20 +11,36 @@ import { useGeneralStateUpdator } from "@state/hooks";
 
 import { CATEGORIES_NAMES as CGN } from "@static/values/config";
 
-//Interface with fully static styles: elements styles are never gonna change with events and styles are
-//statically defined.
+function RegistryModal({ closeModal, editingRecord, recordIndex }) {
+  const record = editingRecord || BLANK_RECORD; //Existance of recordIndex tells if it's a new record.
 
-function RegistryModal({ closeModal, editingRecord, locked }) {
   const updateGS = useGeneralStateUpdator("registry", "counters");
-  const { recordIndex, ...record } = editingRecord || NEW_RECORD; //Existance of recordIndex tells if it's a new record.
-
   const values = useObjectState(record);
-  //For new records all fields must be completed. For editing records at least one field must have changed.
+
   const isSubmittable = exists(recordIndex)
-    ? Object.keys(values.get).some((f) => values.get[f] != editingRecord[f])
+    ? Object.keys(values.get).some((f) => values.get[f] != editingRecord[f]) //For editing records at least one field must have changed.
     : Object.keys(values.get).every(
-        (f) => !REQUIRED.includes(f) || values.get[f] != NEW_RECORD[f]
+        (f) => !REQUIRED.includes(f) || values.get[f] != BLANK_RECORD[f] //For new records all fields must be completed.
       );
+
+  function submit() {
+    if (!isSubmittable) return;
+
+    if (exists(recordIndex))
+      updateGS.registry.setRecord(recordIndex, values.get);
+    else updateGS.registry.addRecord(values.get);
+
+    closeModal();
+  }
+
+  React.useEffect(() => {
+    function onKeyDown(e) {
+      if (isSubmittable && e.key == "Enter") submit();
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isSubmittable]);
 
   function onTrash() {
     displayCuteAlert({
@@ -34,25 +51,17 @@ function RegistryModal({ closeModal, editingRecord, locked }) {
         text: "Sí, borrar",
         onClick: (closeAlert) => {
           updateGS.registry.removeRecord(recordIndex);
-          closeAlert();
           closeModal();
+          closeAlert();
         },
       },
       customStyles: STYLES.trashAlert,
     });
   }
 
-  function onSubmit() {
-    if (exists(recordIndex))
-      updateGS.registry.setRecord(recordIndex, values.get);
-    else updateGS.registry.addRecord(values.get);
-
-    closeModal();
-  }
-
   return (
     <div className={STYLES.ct}>
-      {!locked && exists(recordIndex) && (
+      {exists(recordIndex) && (
         <BsTrashFill onClick={onTrash} className={STYLES.trash} />
       )}
 
@@ -73,19 +82,19 @@ function RegistryModal({ closeModal, editingRecord, locked }) {
         <CuteInput
           value={values.get.name}
           onChange={(newName) => values.merge({ name: newName })}
-          label="Nombre"
+          label="Actividad Iniciada"
           customDirSty={STYLES.nameInput}
         />
       </div>
 
       <p className={STYLES.categoriesTitle}>Categoría de la Actividad</p>
       <div className={STYLES.categoriesCt}>
-        {chunk(Object.keys(CGN).reverse(), 4).map((ctgRow, index) => (
+        {chunk(Object.keys(CGN).reverse(), 3).map((ctgRow, index) => (
           <div key={index} className={STYLES.categoriesRow}>
             {ctgRow.map((ctg) => (
               <button
                 key={ctg}
-                onClick={() => !locked && values.merge({ categoryKey: ctg })}
+                onClick={() => values.merge({ categoryKey: ctg })}
                 className={
                   STYLES.categoryBox +
                   (values.get.categoryKey == ctg ? STYLES.categorySelected : "")
@@ -99,7 +108,7 @@ function RegistryModal({ closeModal, editingRecord, locked }) {
       </div>
 
       {isSubmittable && (
-        <button onClick={() => onSubmit(values.get)} className={STYLES.submit}>
+        <button onClick={submit} className={STYLES.submit}>
           {exists(recordIndex) ? "Guardar cambios" : "Agregar nuevo punto"}
         </button>
       )}
@@ -118,8 +127,8 @@ const STYLES = {
   
   categoriesTitle: "mt-6 text-slate-700 border-b-1 border-emerald-300 text-center w-10/12 mx-auto",
   categoriesCt: "mt-3 flex flex-col",
-  categoriesRow: "my-1 flex justify-around items-center",
-  categoryBox: "py-1 px-3 text-default border-1 border-sky-300 rounded-md ",
+  categoriesRow: "my-1 flex justify-center items-center",
+  categoryBox: "mx-1 py-1 px-3 text-default border-1 border-sky-300 rounded-md ",
   categorySelected: "bg-sky-400 text-slate-100",
 
   submit: "mt-8 w-full py-2 border-1 bg-sky-500 text-slate-100 rounded-lg text-default focus:bg-emerald-400",
@@ -132,7 +141,7 @@ const STYLES = {
 
 const REQUIRED = ["time", "categoryKey"];
 
-const NEW_RECORD = {
+const BLANK_RECORD = {
   time: null,
   name: "",
   categoryKey: null,

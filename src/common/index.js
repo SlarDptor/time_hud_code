@@ -4,7 +4,7 @@ import c2 from "./general/Cuties/CuteSelect";
 import c3 from "./general/Cuties/CuteTimeInput";
 import c4 from "./general/Cuties/CuteCheckbox";
 import c5 from "./general/Cuties/CuteActionNotice";
-import c6 from "./general/Cuties/CuteModal";
+import c6, { useModalState as c6a } from "./general/Cuties/CuteModal";
 import c7 from "./general/Cuties/CuteMessagesList";
 import c8 from "./general/Cuties/CuteAlert";
 import c9, {
@@ -25,6 +25,7 @@ export const CuteTimeInput = c3;
 export const CuteCheckbox = c4;
 export const CuteActionNotice = c5;
 export const CuteModal = c6;
+export const useModalState = c6a;
 export const usgMessagesList = c7;
 export const displayCuteAlert = c8;
 export const CuteSlidingList = c9;

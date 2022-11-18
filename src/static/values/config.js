@@ -11,12 +11,11 @@ export const BREAKPOINTS_WIDTHS = {
 };
 
 export const CATEGORIES_NAMES = {
-  [ACK.LEV]: "Levantarse",
   [ACK.SANA]: "Sana",
   [ACK.PROY]: "Proyectos",
   [ACK.BICI]: "Bici",
   [ACK.TD]: "T.D.",
-  [ACK.ENTR]: "Entr.",
+  [ACK.ENTR]: "Entret.",
   [ACK.VIDA]: "Vida",
 };
 
