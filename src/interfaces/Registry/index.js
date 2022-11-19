@@ -181,8 +181,8 @@ const STYLES = {
   reloadIcon: "mr-1",
 
   buttons: "mt-5 flex",
-  addButton: "shrink-0 w-7/12 text-default flex items-center justify-center mr-1 rounded-md border-1 border-sky-500 text-sky-500 text-slate-100 pr-2 py-2 focus:bg-sky-500 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
-  minusButton: "grow flex items-center text-default justify-center ml-1 rounded-md border-1 border-yellow-500 text-yellow-500 text-slate-100 py-2 focus:bg-yellow-500 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
+  addButton: "shrink-0 w-7/12 text-default flex items-center justify-center mr-1 rounded-md border-1 border-sky-500 text-sky-500 pr-2 py-2 focus:bg-sky-500 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
+  minusButton: "grow flex items-center text-default justify-center ml-1 rounded-md border-1 border-yellow-500 text-yellow-500 py-2 focus:bg-yellow-500 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
   buttonPlus: "w-6 h-6 mr-1",
 
   listCt: "mt-4 pb-10",

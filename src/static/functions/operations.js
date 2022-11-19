@@ -9,13 +9,13 @@ import {
 
 moment.locale("es", {
   weekdays: [
+    "Domingo",
     "Lunes",
     "Martes",
     "Miércoles",
     "Jueves",
     "Viernes",
     "Sábado",
-    "Dómingo",
   ],
 });
 

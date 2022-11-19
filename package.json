@@ -1,6 +1,6 @@
 {
-  "name": "tooled_project_template_v2",
-  "version": "0.1.0",
+  "name": "time_hud",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.3",
