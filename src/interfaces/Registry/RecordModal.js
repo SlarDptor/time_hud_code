@@ -11,10 +11,10 @@ import { useGeneralStateUpdator } from "@state/hooks";
 
 import { CATEGORIES_NAMES as CGN } from "@static/values/config";
 
-function RegistryModal({ closeModal, editingRecord, recordIndex }) {
+function RegistryRecordModal({ closeModal, editingRecord, recordIndex }) {
   const record = editingRecord || BLANK_RECORD; //Existance of recordIndex tells if it's a new record.
 
-  const updateGS = useGeneralStateUpdator("registry", "counters");
+  const updateGS = useGeneralStateUpdator("registry");
   const values = useObjectState(record);
 
   const isSubmittable = exists(recordIndex)
@@ -37,7 +37,6 @@ function RegistryModal({ closeModal, editingRecord, recordIndex }) {
     function onKeyDown(e) {
       if (isSubmittable && e.key == "Enter") submit();
     }
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isSubmittable]);
@@ -147,4 +146,4 @@ const BLANK_RECORD = {
   categoryKey: null,
 };
 
-export default RegistryModal;
+export default RegistryRecordModal;

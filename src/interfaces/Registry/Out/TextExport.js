@@ -30,7 +30,7 @@ function TextExport({ registry }) {
       ></textarea>{" "}
       <button
         onClick={copy}
-        className="mt-6 border-sky-400 text-sky-500 border-1 py-2 w-4/12 mx-auto rounded-md focus:bg-sky-500 focus:text-slate-100"
+        className="mt-6 border-slate-400 text-slate-500 border-1 py-2 w-4/12 mx-auto rounded-md focus:bg-slate-500 focus:text-slate-100"
       >
         {copied ? "Copiado!" : "Copiar"}
       </button>

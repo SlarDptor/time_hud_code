@@ -14,12 +14,20 @@ function RegistryWakeModal({ closeModal, wakeRecord }) {
 
   const isSubmittable = values.get.time != BLANK_WAKE_RECORD.time;
 
-  function onSubmit() {
+  function submit() {
     if (wakeRecord) updateGS.registry.setRecord(0, values.get);
     else updateGS.registry.addRecord(values.get);
 
     closeModal();
   }
+
+  React.useEffect(() => {
+    function onKeyDown(e) {
+      if (isSubmittable && e.key == "Enter") submit();
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [submit]);
 
   return (
     <div className={STYLES.ct}>
@@ -46,7 +54,7 @@ function RegistryWakeModal({ closeModal, wakeRecord }) {
       </div>
 
       {isSubmittable && (
-        <button onClick={() => onSubmit(values.get)} className={STYLES.submit}>
+        <button onClick={() => submit(values.get)} className={STYLES.submit}>
           {wakeRecord ? "Guardar cambios" : "Agregar"}
         </button>
       )}

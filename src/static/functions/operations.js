@@ -47,13 +47,33 @@ export function addTimes(timeA, timeB) {
   return present(result);
 }
 
-/**Substract `timeB` from `timeA` and returns the result as a time */
-export function substractTimes(timeA, timeB) {
-  const result = m(timeA)
-    .subtract(m(timeB).hours(), "hours")
-    .subtract(m(timeB).minutes(), "minutes");
+/**Substract `timeB` from `timeA` and returns the result as a time.
+ * @param timeA The time to substract from
+ * @param timeB The time to substract
+ * @param cyclicHours If `false`, when `timeB` is higher than `timeA` the result will be negative. Otherwise, it will cycle.
+ *
+ * ### Example
+ *
+ * ```
+ * //Not cyclic, useful to find the difference between two amounts of time (durations)
+ * substractTimes("8:00", "10:00", false) => "-2:00"
+ *
+ * //Default and cyclic, useful to find the difference between two hours of the day
+ * substractTimes("8:00", "10:00") => "22:00"
+ * ```
+ *
+ */
+export function substractTimes(timeA, timeB, cyclicHours = true) {
+  var [higher, lower, negative] =
+    cyclicHours || m(timeA).isSameOrAfter(m(timeB), "minutes")
+      ? [timeA, timeB, false]
+      : [timeB, timeA, true];
 
-  return present(result);
+  const result = m(higher)
+    .subtract(m(lower).hours(), "hours")
+    .subtract(m(lower).minutes(), "minutes");
+
+  return (negative ? "-" : "") + present(result);
 }
 
 /**Returns the time interval of `record` based on the `nextRecord` time,

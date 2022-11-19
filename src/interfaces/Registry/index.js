@@ -7,33 +7,34 @@ import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
 import { ops } from "@static/functions";
 import { CuteModal, displayCuteAlert, useModalState } from "@common/index";
 
-import RegistryModal from "./Modal";
-import RegistryWakeModal from "./WakeModal";
+import RecordModal from "./RecordModal";
+import WakeModal from "./WakeModal";
+import HalfwayModal from "./HalfwayModal";
 import TextExport from "./Out/TextExport";
 import TextImport from "./Out/TextImport";
-
-//Interface with fully static styles: elements styles are never gonna change with events and styles are
-//statically defined.
 
 function RegistryInterface() {
   const gs = useGeneralStateReader("registry");
   const updateGS = useGeneralStateUpdator("registry");
-  const editModal = useModalState();
+  const modal = useModalState();
 
   function onAddRecord() {
-    editModal.open();
+    modal.open();
+  }
+
+  function onAddHalfway() {
+    modal.open(null, { halfway: true });
+  }
+
+  function onAddWakeRecord() {
+    modal.open(null, { wake: true });
   }
 
   function onEditRecord(recordIndex) {
     const record = gs.registry[recordIndex];
 
-    if (recordIndex == 0)
-      editModal.open({ wakeRecord: record }, { wake: true });
-    else editModal.open({ recordIndex, editingRecord: record });
-  }
-
-  function onAddWakeRecord() {
-    editModal.open(null, { wake: true });
+    if (recordIndex == 0) modal.open({ wakeRecord: record }, { wake: true });
+    else modal.open({ recordIndex, editingRecord: record });
   }
 
   function reload() {
@@ -83,6 +84,10 @@ function RegistryInterface() {
       gs.registry.at(-1).time //Last record
     );
 
+  var ModalContent = RecordModal;
+  if (modal.wake) ModalContent = WakeModal;
+  else if (modal.halfway) ModalContent = HalfwayModal;
+
   return (
     <>
       <div className={STYLES.top}>
@@ -103,7 +108,11 @@ function RegistryInterface() {
         >
           <BiPlus className={STYLES.buttonPlus} /> Punto Temporal
         </button>
-        <button disabled={isEmpty} className={STYLES.minusButton}>
+        <button
+          onClick={onAddHalfway}
+          disabled={isEmpty}
+          className={STYLES.minusButton}
+        >
           <BiPlus className={STYLES.buttonPlus} /> Intermedio
         </button>
       </div>
@@ -156,15 +165,8 @@ function RegistryInterface() {
         </p>
       )}
 
-      <CuteModal
-        customDirSty={{ ct: STYLES.modal }}
-        {...editModal.cuteModalProps}
-      >
-        {editModal.wake ? (
-          <RegistryWakeModal {...editModal.childrenProps} />
-        ) : (
-          <RegistryModal {...editModal.childrenProps} />
-        )}
+      <CuteModal customDirSty={{ ct: STYLES.modal }} {...modal.cuteModalProps}>
+        <ModalContent {...modal.childrenProps} />
       </CuteModal>
     </>
   );
@@ -190,19 +192,19 @@ const STYLES = {
   beginColumn: "grow text-center ",
   intervalColumn: "w-5/24 shrink-0 text-center ",
 
-  addWake: "mt-10 flex justify-center items-center mx-auto text-slate-500 border-1 rounded-md border-sky-400 px-6 py-2 text-lg focus:text-slate-100 focus:bg-gray-500",
+  addWake: "mt-10 mb-10 flex justify-center items-center mx-auto text-slate-500 border-1 rounded-md border-sky-400 px-6 py-2 text-lg focus:text-slate-100 focus:bg-gray-500",
   addWakeIcon: "text-3xl mr-4",
 
-  listContent: "flex flex-col-reverse",
+  listContent: "flex mt-4 flex-col-reverse",
   row: "flex text-slate-700 text-light py-2 cursor-pointer focus:bg-slate-100 hover:bg-slate-100",
 
-  bottom: "fixed w-screen bottom-0 left-0 py-2 px-4 bg-white border-t-1 border-sky-500 text-lg text-light text-center tracking-wide text-slate-700",
-  endTime: "text-yellow-700 text-default",
-  remainingTime: "text-sky-500 text-default",
-
-  outButtonsCt: "flex justify-center mt-10 pt-6 border-t-1 border-slate-200",
+  outButtonsCt: "flex justify-center mt-4 pt-8 border-t-1 border-emerald-400",
   outButton: "flex mx-2 justify-center items-center px-4 border-1 border-slate-300 py-2 rounded-md text-slate-500 focus:bg-slate-500 focus:text-slate-100",
   outButtonIcon: "mr-2 text-xl",
+
+  bottom: "fixed w-screen bottom-0 left-0 py-2 px-4 bg-slate-100 border-t-1 border-slate-200 text-lg text-light text-center tracking-wide text-slate-500",
+  endTime: "text-yellow-600",
+  remainingTime: "text-sky-500 ",
 
   modal: "bg-white",
 
