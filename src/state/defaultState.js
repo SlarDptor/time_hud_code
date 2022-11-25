@@ -6,7 +6,7 @@ import { exists } from "@static/functions";
 
 //prettier-ignore
 import { INTERFACES as IFK } from "@static/values/keys";
-import { CATEGORIES_NAMES } from "@static/values/config";
+import { CATEGORIES_NAMES, LOCAL_STORAGE_NAME } from "@static/values/config";
 
 /**Error thrown when some actions were defined but not handled by the reducer.
  * @param {string} stateName @param {string} type */
@@ -36,8 +36,14 @@ export const DEFAULT_GENERAL_STATE = {
   })),
   settings: {
     currentInterface: IFK.NO_INTERFACE,
-    DNL: false,
-    DSE: false,
+    alternateDays: {
+      DNL: false,
+      DEE: false,
+      DDD: false,
+      DMP: false,
+      DSP: false,
+      DST: false,
+    },
     reassigningMinutes: 0,
   },
 };
@@ -45,7 +51,7 @@ export const DEFAULT_GENERAL_STATE = {
 /**
  * @typedef {Array<TimeRecord>} RegistryState
  * @typedef {{[category: string]: CategoryCounter}} CountersState
- * @typedef {{DNL: boolean, DSE: boolean, currentInterface: string, reassigningMinutes: number}} SettingsState
+ * @typedef {{alternateDays: any, currentInterface: string, reassigningMinutes: number, lastVersion: string}} SettingsState
  *
  * @typedef {Object} TimeRecord
  * @property {string} time The time at which the activity began.
@@ -61,7 +67,7 @@ export default (() => {
   // Here do changes and processes on the default state before exporting.
 
   // Load general state from localStorage if it's there. Otherwise, load the default general state.
-  const savedGS = JSON.parse(localStorage.getItem("generalState"));
+  const savedGS = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME));
 
   var initialState;
   if (exists(savedGS) && !isEmpty(savedGS)) initialState = savedGS;

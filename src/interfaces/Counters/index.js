@@ -32,7 +32,7 @@ function CountersInterface() {
         onClick: (closeAlert) => {
           updateGS.settings.takeMinutes(gs.settings.reassigningMinutes);
           updateGS.counters.setCountersMaxes(
-            ops.calculateCountersMaxTimes(gs.settings)
+            ops.calculateCountersMaxTimes(gs.settings.alternateDays)
           );
           closeAlert();
         },
@@ -47,8 +47,8 @@ function CountersInterface() {
     );
   }, [gs.registry]);
 
-  function onCheck(setting, checked) {
-    updateGS.settings.setSetting(setting, checked);
+  function onCheck(altDayKey, checked) {
+    updateGS.settings.setAlternateDay(altDayKey, checked);
   }
 
   function changeMax(categoryKey, operation) {
@@ -77,16 +77,49 @@ function CountersInterface() {
   return (
     <>
       <div className={STYLES.checkboxesCt}>
-        <CuteCheckbox
-          onChange={(checked) => onCheck("DNL", checked)}
-          checked={gs.settings.DNL}
-          label="Día No Laboral"
-        />
-        <CuteCheckbox
-          onChange={(checked) => onCheck("DSE", checked)}
-          checked={gs.settings.DSE}
-          label="Día Sin Ejercicio"
-        />
+        <div className={STYLES.checkboxesColumn}>
+          <CuteCheckbox
+            onChange={(checked) => onCheck("DNL", checked)}
+            checked={gs.settings.alternateDays.DNL}
+            label="Día No Laboral"
+            customDirSty={{ ct: STYLES.leftCheckbox }}
+          />
+          <CuteCheckbox
+            onChange={(checked) => onCheck("DEE", checked)}
+            checked={gs.settings.alternateDays.DEE}
+            label="Día Entre Ejerc."
+            customDirSty={{ ct: STYLES.leftCheckbox }}
+          />
+          <CuteCheckbox
+            onChange={(checked) => onCheck("DMP", checked)}
+            checked={gs.settings.alternateDays.DMP}
+            label="Día Medios Proy."
+            customDirSty={{ ct: STYLES.leftCheckbox }}
+          />
+        </div>
+        <div className={STYLES.checkboxesColumn}>
+          <CuteCheckbox
+            labelPosition="left"
+            onChange={(checked) => onCheck("DST", checked)}
+            checked={gs.settings.alternateDays.DST}
+            label="Día Sin T.D."
+            customDirSty={{ ct: STYLES.rightCheckbox }}
+          />
+          <CuteCheckbox
+            labelPosition="left"
+            onChange={(checked) => onCheck("DDD", checked)}
+            checked={gs.settings.alternateDays.DDD}
+            label="Día De Descanso"
+            customDirSty={{ ct: STYLES.rightCheckbox }}
+          />
+          <CuteCheckbox
+            labelPosition="left"
+            onChange={(checked) => onCheck("DSP", checked)}
+            checked={gs.settings.alternateDays.DSP}
+            label="Día Sin Proyectos"
+            customDirSty={{ ct: STYLES.rightCheckbox }}
+          />
+        </div>
       </div>
 
       <button onClick={calculateMaxes} className={STYLES.recalculate}>
@@ -180,11 +213,15 @@ function CountersInterface() {
 
 //prettier-ignore
 const STYLES = {
-  checkboxesCt: "flex justify-around items-center mt-2",
-  recalculate: "flex justify-center items-center text-center text-slate-600 text-light border-b-1 border-transparent w-7/12 mx-auto text-purple-500 pb-1 mt-4 focus:border-purple-500",
+  checkboxesCt: "flex",
+  checkboxesColumn: "flex-1 flex items-stretch flex-col",
+  leftCheckbox: "justify-start py-3 border-b-1 border-slate-300",
+  rightCheckbox: "justify-end py-3 border-b-1 border-slate-300",
+
+  recalculate: "flex justify-center items-center text-center text-slate-600 text-light border-1 border-purple-500 w-8/12 rounded-md mx-auto text-purple-500 py-2 mt-4 focus:text-slate-100 focus:bg-purple-500",
   recalculateIcon: "text-lg mr-1",
 
-  listCt: "mt-4",
+  listCt: "mt-8",
   header: "text-default text-slate-700 flex justify-center items-center border-t-1 border-b-1 border-purple-400",
 
   categoryColumn: "w-3/12 py-3 shrink-0 text-center ",

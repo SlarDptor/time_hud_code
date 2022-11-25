@@ -1,5 +1,10 @@
 import { BREAKPOINTS as BPK, ACTIVITY_CATEGORIES as ACK } from "./keys";
 
+export const LOCAL_STORAGE_NAME = "timeHUDState";
+export const STORED_VERSION_NAME = "timeHUDVersion";
+
+export const VERSION = "1.1.0";
+
 export const BREAKPOINTS_WIDTHS = {
   [BPK.MONITOR]: 1500,
   [BPK.WIDE_LAPTOP]: 1280,
@@ -22,27 +27,34 @@ export const CATEGORIES_NAMES = {
 export const COUNTERS_PARAMS = {
   [ACK.SANA]: {
     baseMax: "2:00",
-    onDNL: { change: "2:00", sign: "-" },
+    DNL: { change: "2:00", sign: "-" },
   },
   [ACK.PROY]: {
-    baseMax: "3:30",
-    onDNL: { change: "1:00", sign: "-" },
-    onDSE: { change: "0:30", sign: "+" },
+    baseMax: "5:00",
+    DEE: { change: "1:00", sign: "+" },
+    DMP: { change: "2:30", sign: "-" },
+    DSP: { change: "5:00", sign: "-" },
   },
   [ACK.BICI]: {
-    baseMax: "1:30",
-    onDSE: { change: "1:30", sign: "-" },
+    baseMax: "2:00",
+    DEE: { change: "2:00", sign: "-" },
+    DDD: { change: "2:00", sign: "-" },
   },
   [ACK.TD]: {
-    baseMax: "2:00",
-    onDSE: { change: "1:00", sign: "+" },
+    baseMax: "1:30",
+    DEE: { change: "1:00", sign: "+" },
+    DST: { change: "1:30", sign: "-" },
   },
   [ACK.ENTR]: {
-    baseMax: "4:00",
-    onDNL: { change: "3:00", sign: "+" },
+    baseMax: "3:00",
+    DNL: { change: "2:00", sign: "+" },
+    DST: { change: "1:30", sign: "+" },
+    DDD: { change: "2:00", sign: "+" },
+    DMP: { change: "2:30", sign: "+" },
+    DSP: { change: "5:00", sign: "+" },
   },
   [ACK.VIDA]: {
-    baseMax: "3:00",
+    baseMax: "2:30",
   },
 };
 

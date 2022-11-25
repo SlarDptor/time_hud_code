@@ -85,21 +85,20 @@ export function getRecordInterval(record, nextRecord) {
 }
 
 /**Calculates the max time for each activity category counter */
-export function calculateCountersMaxTimes({ DNL, DSE }) {
-  return mapValues(COUNTERS_PARAMS, (ct) => {
-    var maxTime = ct.baseMax;
+export function calculateCountersMaxTimes(altDaysSettings) {
+  return mapValues(COUNTERS_PARAMS, (counterParams) => {
+    const { baseMax, ...counterMaxModifiers } = counterParams;
 
-    if (DNL && ct.onDNL)
-      maxTime =
-        ct.onDNL.sign == "+"
-          ? addTimes(maxTime, ct.onDNL.change)
-          : substractTimes(maxTime, ct.onDNL.change);
+    var maxTime = baseMax;
 
-    if (DSE && ct.onDSE)
-      maxTime =
-        ct.onDSE.sign == "+"
-          ? addTimes(maxTime, ct.onDSE.change)
-          : substractTimes(maxTime, ct.onDSE.change);
+    for (let altDayKey in counterMaxModifiers)
+      if (altDaysSettings[altDayKey]) {
+        const { change, sign } = counterMaxModifiers[altDayKey];
+        maxTime =
+          sign == "+"
+            ? addTimes(maxTime, change)
+            : substractTimes(maxTime, change);
+      }
 
     return maxTime;
   });

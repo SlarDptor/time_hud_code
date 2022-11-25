@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
 
+import { LOCAL_STORAGE_NAME } from "@static/values/config";
+
 import defaultState from "./defaultState";
 
 import countersReducer from "./counters/reducer";
@@ -16,7 +18,7 @@ const combinedReducers = combineReducers({
 function rootReducer(previousState, action) {
   const newState = combinedReducers(previousState, action);
 
-  localStorage.setItem("generalState", JSON.stringify(newState));
+  localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify(newState));
 
   return newState;
 }

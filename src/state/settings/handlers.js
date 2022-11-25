@@ -11,8 +11,13 @@ function getHandlers(prevState, newState) {
 
     //
 
-    setSetting({ settingKey, newValue }) {
-      newState[settingKey] = newValue;
+    setInterface({ interfaceKey }) {
+      newState.currentInterface = interfaceKey;
+      return newState;
+    },
+
+    setAlternateDay({ altDayKey, newValue }) {
+      newState.alternateDays[altDayKey] = newValue;
       return newState;
     },
 

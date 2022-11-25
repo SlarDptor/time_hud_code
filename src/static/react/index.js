@@ -8,7 +8,7 @@ import h7 from "./general/useBordersVisibility";
 import h8 from "./general/useCustomizableStyles";
 
 //Your project-specific react tools imports.
-//
+import s1 from "./useSwipeDetector";
 
 //General purpose react tools exports. Keep them separated to ease updating.
 export const useArrayState = h1;
@@ -20,4 +20,4 @@ export const useBordersVisibility = h7;
 export const useCustomizableStyles = h8;
 
 //Your project-specific react tools exports.
-//
+export const useSwipeDetector = s1;

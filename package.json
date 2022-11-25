@@ -2,6 +2,7 @@
   "name": "time_hud",
   "version": "1.0.1",
   "private": true,
+  "homepage": "https://slardptor.github.io/time_hud",
   "dependencies": {
     "@craco/craco": "^6.4.3",
     "@testing-library/jest-dom": "^5.16.3",

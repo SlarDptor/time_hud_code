@@ -13,8 +13,10 @@ export default function reducer(prevState = defaultState.settings, action) {
     case TYPES.CLEAN:
       return handlers.clean();
 
-    case TYPES.SET_SETTING:
-      return handlers.setSetting(action.params);
+    case TYPES.SET_INTERFACE:
+      return handlers.setInterface(action.params);
+    case TYPES.SET_ALTERNATE_DAY:
+      return handlers.setAlternateDay(action.params);
     case TYPES.ADD_MINUTES:
       return handlers.addMinutes(action.params);
     case TYPES.TAKE_MINUTES:

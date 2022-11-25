@@ -3,16 +3,24 @@ import { MdMoreTime } from "react-icons/md";
 import { CgTimelapse } from "react-icons/cg";
 
 import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
+import { useSwipeDetector } from "@static/react";
 
 import { INTERFACES as IFK } from "@static/values/keys";
 
 function TopTabs() {
   const gs = useGeneralStateReader("settings.currentInterface");
   const updateGS = useGeneralStateUpdator("settings");
+  const { direction, distance } = useSwipeDetector();
+
+  React.useEffect(() => {
+    if (distance > 100)
+      updateGS.settings.setInterface(
+        direction == "right" ? IFK.REGISTRY : IFK.COUNTERS
+      );
+  }, [direction, distance]);
 
   function changeInterface(ifKey) {
-    updateGS.settings.setSetting(
-      "currentInterface",
+    updateGS.settings.setInterface(
       ifKey == gs.settings.currentInterface ? IFK.NO_INTERFACE : ifKey
     );
   }

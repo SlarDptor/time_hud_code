@@ -1,33 +1,48 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
+import { IoWarning } from "react-icons/io5";
 import "./index.css";
 
 import { createComposedStore } from "@state/index";
+import { displayCuteAlert } from "@common/index";
+
+import {
+  STORED_VERSION_NAME,
+  LOCAL_STORAGE_NAME,
+  VERSION,
+} from "@static/values/config";
 
 import App from "./Main";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <ReduxProvider store={createComposedStore()}>
-      <App />
-    </ReduxProvider>
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals(console.log);
-
-// function reportWebVitals(onPerfEntry) {
-//   if (onPerfEntry && onPerfEntry instanceof Function) {
-//     import("web-vitals").then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-//       getCLS(onPerfEntry);
-//       getFID(onPerfEntry);
-//       getFCP(onPerfEntry);
-//       getLCP(onPerfEntry);
-//       getTTFB(onPerfEntry);
-//     });
-//   }
-// }
+//Version Control: Reset the local storage if the version is different.
+const storedVersion = localStorage.getItem(STORED_VERSION_NAME);
+if (storedVersion !== VERSION) {
+  displayCuteAlert({
+    Icon: IoWarning,
+    title: `Versión Antigua.`,
+    body: `La versión guardada es la ${storedVersion} y la última versión es la ${VERSION}. ¿Reestablecer el estado guardado?`,
+    button: {
+      text: "Sí",
+      onClick: () => {
+        localStorage.removeItem(LOCAL_STORAGE_NAME);
+        localStorage.removeItem(STORED_VERSION_NAME);
+        localStorage.setItem(STORED_VERSION_NAME, VERSION);
+        window.location.href = "/";
+      },
+    },
+    secondButton: {
+      text: "Todavía no",
+      onClick: () => (window.location.href = "/"),
+    },
+  });
+}
+//Load the app if all good.
+else
+  ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+      <ReduxProvider store={createComposedStore()}>
+        <App />
+      </ReduxProvider>
+    </React.StrictMode>
+  );
