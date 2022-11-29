@@ -45,7 +45,7 @@ export const COUNTERS_PARAMS = {
     DEE: { change: "2:00", sign: "+" },
   },
   [ACK.ENTR]: {
-    baseMax: "4:30",
+    baseMax: "4:00",
     DNL: { change: "2:00", sign: "+" },
     DDD: { change: "2:00", sign: "+" },
     DMP: { change: "2:00", sign: "+" },
