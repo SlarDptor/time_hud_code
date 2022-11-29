@@ -199,10 +199,11 @@ const STYLES = {
 
   message: "mt-6 text-sm text-slate-400 text-center text-light",
 
-  checkboxesCt: "mt-4 mb-2 flex",
+  checkboxesCt: "mb-2 flex",
   checkboxesColumn: "flex-1 flex items-stretch flex-col",
   leftCheckbox: "text-sm justify-start py-3 border-b-1 border-slate-300",
   rightCheckbox: "text-sm justify-end py-3 border-b-1 border-slate-300",
+  centerCheckbox:  "mt-2 text-sm justify-center py-3 border-b-1 border-slate-300",
   recalculateButton: "mt-4 border-1 border-red-500 text-red-600 px-4 py-2 rounded-md w-8/12 mx-auto",
 
   reloadAlert: {
@@ -227,14 +228,14 @@ function RecalculateMaxesCheckboxes({ alternateDays, closeAlert, onSubmit }) {
 
   return (
     <>
+      <CuteCheckbox
+        onChange={(checked) => onCheck("DNL", checked)}
+        checked={checkedFields.get.DNL}
+        label="Día No Laboral"
+        customDirSty={{ ct: STYLES.centerCheckbox }}
+      />
       <div className={STYLES.checkboxesCt}>
         <div className={STYLES.checkboxesColumn}>
-          <CuteCheckbox
-            onChange={(checked) => onCheck("DNL", checked)}
-            checked={checkedFields.get.DNL}
-            label="Día No Laboral"
-            customDirSty={{ ct: STYLES.leftCheckbox }}
-          />
           <CuteCheckbox
             onChange={(checked) => onCheck("DEE", checked)}
             checked={checkedFields.get.DEE}
@@ -249,13 +250,6 @@ function RecalculateMaxesCheckboxes({ alternateDays, closeAlert, onSubmit }) {
           />
         </div>
         <div className={STYLES.checkboxesColumn}>
-          <CuteCheckbox
-            labelPosition="left"
-            onChange={(checked) => onCheck("DST", checked)}
-            checked={checkedFields.get.DST}
-            label="Día Sin T.D."
-            customDirSty={{ ct: STYLES.rightCheckbox }}
-          />
           <CuteCheckbox
             labelPosition="left"
             onChange={(checked) => onCheck("DDD", checked)}

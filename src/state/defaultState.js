@@ -42,7 +42,6 @@ export const DEFAULT_GENERAL_STATE = {
       DDD: false,
       DMP: false,
       DSP: false,
-      DST: false,
     },
     reassigningMinutes: 0,
   },

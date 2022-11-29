@@ -31,10 +31,9 @@ export const COUNTERS_PARAMS = {
     DNL: { change: "2:00", sign: "-" },
   },
   [ACK.PROY]: {
-    baseMax: "3:30",
-    DEE: { change: "1:00", sign: "+" },
+    baseMax: "4:00",
     DMP: { change: "2:00", sign: "-" },
-    DSP: { change: "3:30", sign: "-" },
+    DSP: { change: "4:00", sign: "-" },
   },
   [ACK.BICI]: {
     baseMax: "2:00",
@@ -43,16 +42,14 @@ export const COUNTERS_PARAMS = {
   },
   [ACK.TD]: {
     baseMax: "1:30",
-    DEE: { change: "1:00", sign: "+" },
-    DST: { change: "1:30", sign: "-" },
+    DEE: { change: "2:00", sign: "+" },
   },
   [ACK.ENTR]: {
     baseMax: "4:30",
     DNL: { change: "2:00", sign: "+" },
-    DST: { change: "1:30", sign: "+" },
     DDD: { change: "2:00", sign: "+" },
     DMP: { change: "2:00", sign: "+" },
-    DSP: { change: "3:30", sign: "+" },
+    DSP: { change: "4:00", sign: "+" },
   },
   [ACK.VIDA]: {
     baseMax: "2:30",
