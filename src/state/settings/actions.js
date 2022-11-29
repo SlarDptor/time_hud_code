@@ -19,9 +19,9 @@ const ACTION_CREATORS = {
     type: TYPES.SET_INTERFACE,
     params: { interfaceKey },
   }),
-  setAlternateDay: (altDayKey, newValue) => ({
+  setAlternateDays: (newAlternateDays) => ({
     type: TYPES.SET_ALTERNATE_DAY,
-    params: { altDayKey, newValue },
+    params: { newAlternateDays },
   }),
   addMinutes: (minutes) => ({
     type: TYPES.ADD_MINUTES,
@@ -41,7 +41,7 @@ export default ACTION_CREATORS;
  * @typedef {Object} SettingsActions
  * @property {() => any} clean Cleans the settings.
  * @property {(interfaceKey) => any} setInterface Changes the interface.
- * @property {(altDayKey, newValue) => any} setAlternateDay Toggles an alternate day setting.
+ * @property {(newAlternateDays) => any} setAlternateDays Sets all alternate days setting.
  * @property {(minutes) => any} addMinutes Adds the specified number of minutes to the reassigningMinutes.
  * @property {(minutes) => any} takeMinutes Reduces the specified number of minutes from the reassigningMinutes.
  */

@@ -1,9 +1,10 @@
+import projectData from "../../../package.json";
 import { BREAKPOINTS as BPK, ACTIVITY_CATEGORIES as ACK } from "./keys";
 
 export const LOCAL_STORAGE_NAME = "timeHUDState";
 export const STORED_VERSION_NAME = "timeHUDVersion";
 
-export const VERSION = "1.1.0";
+export const VERSION = projectData.version;
 
 export const BREAKPOINTS_WIDTHS = {
   [BPK.MONITOR]: 1500,
@@ -30,10 +31,10 @@ export const COUNTERS_PARAMS = {
     DNL: { change: "2:00", sign: "-" },
   },
   [ACK.PROY]: {
-    baseMax: "5:00",
+    baseMax: "3:30",
     DEE: { change: "1:00", sign: "+" },
-    DMP: { change: "2:30", sign: "-" },
-    DSP: { change: "5:00", sign: "-" },
+    DMP: { change: "2:00", sign: "-" },
+    DSP: { change: "3:30", sign: "-" },
   },
   [ACK.BICI]: {
     baseMax: "2:00",
@@ -46,12 +47,12 @@ export const COUNTERS_PARAMS = {
     DST: { change: "1:30", sign: "-" },
   },
   [ACK.ENTR]: {
-    baseMax: "3:00",
+    baseMax: "4:30",
     DNL: { change: "2:00", sign: "+" },
     DST: { change: "1:30", sign: "+" },
     DDD: { change: "2:00", sign: "+" },
-    DMP: { change: "2:30", sign: "+" },
-    DSP: { change: "5:00", sign: "+" },
+    DMP: { change: "2:00", sign: "+" },
+    DSP: { change: "3:30", sign: "+" },
   },
   [ACK.VIDA]: {
     baseMax: "2:30",

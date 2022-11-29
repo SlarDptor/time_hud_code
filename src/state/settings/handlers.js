@@ -16,8 +16,8 @@ function getHandlers(prevState, newState) {
       return newState;
     },
 
-    setAlternateDay({ altDayKey, newValue }) {
-      newState.alternateDays[altDayKey] = newValue;
+    setAlternateDays({ newAlternateDays }) {
+      newState.alternateDays = newAlternateDays;
       return newState;
     },
 

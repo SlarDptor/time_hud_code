@@ -10,6 +10,7 @@ import {
 } from "@common/index";
 import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
 import { ops } from "@static/functions";
+import { useObjectState } from "@static/react";
 
 import { CATEGORIES_NAMES as CGN } from "@static/values/config";
 import { ACTIVITY_CATEGORIES as ACK } from "@static/values/keys";
@@ -24,17 +25,16 @@ function CountersInterface() {
   function calculateMaxes() {
     displayCuteAlert({
       Icon: IoWarningOutline,
-      title: "¿Recalcular los máximos?",
-      body: "(Usando la nueva configuración)",
-      button: { text: "No, cancelar" },
-      secondButton: {
-        text: "Sí, recalcular",
-        onClick: (closeAlert) => {
+      title: "Recalcular los máximos",
+      body: {
+        Component: RecalculateMaxesCheckboxes,
+        alternateDays: gs.settings.alternateDays,
+        onSubmit: (newAlternateDays) => {
           updateGS.settings.takeMinutes(gs.settings.reassigningMinutes);
           updateGS.counters.setCountersMaxes(
-            ops.calculateCountersMaxTimes(gs.settings.alternateDays)
+            ops.calculateCountersMaxTimes(newAlternateDays)
           );
-          closeAlert();
+          updateGS.settings.setAlternateDays(newAlternateDays);
         },
       },
       customStyles: STYLES.reloadAlert,
@@ -46,10 +46,6 @@ function CountersInterface() {
       ops.calculateCountersDoneTime(gs.registry)
     );
   }, [gs.registry]);
-
-  function onCheck(altDayKey, checked) {
-    updateGS.settings.setAlternateDay(altDayKey, checked);
-  }
 
   function changeMax(categoryKey, operation) {
     const currentMax = gs.counters[categoryKey].max;
@@ -76,52 +72,6 @@ function CountersInterface() {
 
   return (
     <>
-      <div className={STYLES.checkboxesCt}>
-        <div className={STYLES.checkboxesColumn}>
-          <CuteCheckbox
-            onChange={(checked) => onCheck("DNL", checked)}
-            checked={gs.settings.alternateDays.DNL}
-            label="Día No Laboral"
-            customDirSty={{ ct: STYLES.leftCheckbox }}
-          />
-          <CuteCheckbox
-            onChange={(checked) => onCheck("DEE", checked)}
-            checked={gs.settings.alternateDays.DEE}
-            label="Día Entre Ejerc."
-            customDirSty={{ ct: STYLES.leftCheckbox }}
-          />
-          <CuteCheckbox
-            onChange={(checked) => onCheck("DMP", checked)}
-            checked={gs.settings.alternateDays.DMP}
-            label="Día Medios Proy."
-            customDirSty={{ ct: STYLES.leftCheckbox }}
-          />
-        </div>
-        <div className={STYLES.checkboxesColumn}>
-          <CuteCheckbox
-            labelPosition="left"
-            onChange={(checked) => onCheck("DST", checked)}
-            checked={gs.settings.alternateDays.DST}
-            label="Día Sin T.D."
-            customDirSty={{ ct: STYLES.rightCheckbox }}
-          />
-          <CuteCheckbox
-            labelPosition="left"
-            onChange={(checked) => onCheck("DDD", checked)}
-            checked={gs.settings.alternateDays.DDD}
-            label="Día De Descanso"
-            customDirSty={{ ct: STYLES.rightCheckbox }}
-          />
-          <CuteCheckbox
-            labelPosition="left"
-            onChange={(checked) => onCheck("DSP", checked)}
-            checked={gs.settings.alternateDays.DSP}
-            label="Día Sin Proyectos"
-            customDirSty={{ ct: STYLES.rightCheckbox }}
-          />
-        </div>
-      </div>
-
       <button onClick={calculateMaxes} className={STYLES.recalculate}>
         <IoReloadOutline className={STYLES.recalculateIcon} /> Recalcular
         máximos
@@ -202,6 +152,10 @@ function CountersInterface() {
             </span>
           </p>
         )}
+
+        <p className={STYLES.message}>
+          {"Completitud y Consistencia > Calidad Diaria"}
+        </p>
       </div>
 
       <CuteModal {...modal.cuteModalProps}>
@@ -213,15 +167,10 @@ function CountersInterface() {
 
 //prettier-ignore
 const STYLES = {
-  checkboxesCt: "flex",
-  checkboxesColumn: "flex-1 flex items-stretch flex-col",
-  leftCheckbox: "justify-start py-3 border-b-1 border-slate-300",
-  rightCheckbox: "justify-end py-3 border-b-1 border-slate-300",
-
-  recalculate: "flex justify-center items-center text-center text-slate-600 text-light border-1 border-purple-500 w-8/12 rounded-md mx-auto text-purple-500 py-2 mt-4 focus:text-slate-100 focus:bg-purple-500",
+  recalculate: "flex justify-center items-center text-center text-slate-600 text-light border-1 border-purple-500 w-8/12 rounded-md mx-auto text-purple-500 py-2 mt-2 focus:text-slate-100 focus:bg-purple-500",
   recalculateIcon: "text-lg mr-1",
 
-  listCt: "mt-8",
+  listCt: "mt-6",
   header: "text-default text-slate-700 flex justify-center items-center border-t-1 border-b-1 border-purple-400",
 
   categoryColumn: "w-3/12 py-3 shrink-0 text-center ",
@@ -245,17 +194,90 @@ const STYLES = {
   take5Button: "w-7 border-1 border-orange-400 leading-none p-1 rounded-md text-sm text-orange-400 focus:bg-orange-400 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
   add5Button: "w-7 border-1 border-emerald-400 leading-none p-1 rounded-md text-sm text-emerald-400 focus:bg-emerald-400 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
 
-  reassigningMinutes: "mt-8 text-center border-1 border-slate-500 w-8/12 py-2 mx-auto rounded-md text-light text-slate-700",
+  reassigningMinutes: "mt-6 text-center border-1 border-slate-500 w-8/12 py-2 mx-auto rounded-md text-light text-slate-700",
   reassigningMinutesNumber: "relative text-lg text-purple-500 ml-1 top-1px",
+
+  message: "mt-6 text-sm text-slate-400 text-center text-light",
+
+  checkboxesCt: "mt-4 mb-2 flex",
+  checkboxesColumn: "flex-1 flex items-stretch flex-col",
+  leftCheckbox: "text-sm justify-start py-3 border-b-1 border-slate-300",
+  rightCheckbox: "text-sm justify-end py-3 border-b-1 border-slate-300",
+  recalculateButton: "mt-4 border-1 border-red-500 text-red-600 px-4 py-2 rounded-md w-8/12 mx-auto",
 
   reloadAlert: {
     title: "text-slate-500 text-light",
     body: "text-slate-700 !text-center",
     icon: "text-red-500",
-    rightButton: "xs:text-sm text-red-500 border-red-500 hover:bg-red-500 hover:text-slate-100",
-    leftButton: "xs:text-sm"
+    leftButton: "xs:text-sm text-red-500 border-red-500 hover:bg-red-500 hover:text-slate-100",
   },
 };
+
+function RecalculateMaxesCheckboxes({ alternateDays, closeAlert, onSubmit }) {
+  const checkedFields = useObjectState(alternateDays);
+
+  function onCheck(alternateDayKey, checked) {
+    checkedFields.merge({ [alternateDayKey]: checked });
+  }
+
+  function submit() {
+    closeAlert();
+    onSubmit(checkedFields.get);
+  }
+
+  return (
+    <>
+      <div className={STYLES.checkboxesCt}>
+        <div className={STYLES.checkboxesColumn}>
+          <CuteCheckbox
+            onChange={(checked) => onCheck("DNL", checked)}
+            checked={checkedFields.get.DNL}
+            label="Día No Laboral"
+            customDirSty={{ ct: STYLES.leftCheckbox }}
+          />
+          <CuteCheckbox
+            onChange={(checked) => onCheck("DEE", checked)}
+            checked={checkedFields.get.DEE}
+            label="Día Entre Ejerc."
+            customDirSty={{ ct: STYLES.leftCheckbox }}
+          />
+          <CuteCheckbox
+            onChange={(checked) => onCheck("DMP", checked)}
+            checked={checkedFields.get.DMP}
+            label="Día Medios Proy."
+            customDirSty={{ ct: STYLES.leftCheckbox }}
+          />
+        </div>
+        <div className={STYLES.checkboxesColumn}>
+          <CuteCheckbox
+            labelPosition="left"
+            onChange={(checked) => onCheck("DST", checked)}
+            checked={checkedFields.get.DST}
+            label="Día Sin T.D."
+            customDirSty={{ ct: STYLES.rightCheckbox }}
+          />
+          <CuteCheckbox
+            labelPosition="left"
+            onChange={(checked) => onCheck("DDD", checked)}
+            checked={checkedFields.get.DDD}
+            label="Día De Descanso"
+            customDirSty={{ ct: STYLES.rightCheckbox }}
+          />
+          <CuteCheckbox
+            labelPosition="left"
+            onChange={(checked) => onCheck("DSP", checked)}
+            checked={checkedFields.get.DSP}
+            label="Día Sin Proyectos"
+            customDirSty={{ ct: STYLES.rightCheckbox }}
+          />
+        </div>
+      </div>
+      <button onClick={submit} className={STYLES.recalculateButton}>
+        Recalcular
+      </button>
+    </>
+  );
+}
 
 //Tells if the maximum amount is a goal or a limit
 const MAX_IS = {

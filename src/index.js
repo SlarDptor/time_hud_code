@@ -13,7 +13,7 @@ import {
   VERSION,
 } from "@static/values/config";
 
-import App from "./Main";
+import Main from "./Main";
 
 //Version Control: Reset the local storage if the version is different.
 const storedVersion = localStorage.getItem(STORED_VERSION_NAME);
@@ -21,14 +21,18 @@ if (storedVersion !== VERSION) {
   displayCuteAlert({
     Icon: IoWarning,
     title: `Versión Antigua.`,
-    body: `La versión guardada es la ${storedVersion} y la última versión es la ${VERSION}. ¿Reestablecer el estado guardado?`,
+    body: `${
+      storedVersion
+        ? `La versión guardada es la ${storedVersion}`
+        : "No hay una versión guardada"
+    } y la última versión es la ${VERSION}. ¿Reestablecer el estado guardado?`,
     button: {
       text: "Sí",
       onClick: () => {
         localStorage.removeItem(LOCAL_STORAGE_NAME);
         localStorage.removeItem(STORED_VERSION_NAME);
         localStorage.setItem(STORED_VERSION_NAME, VERSION);
-        window.location.href = "/";
+        window.location.pathname = "/";
       },
     },
     secondButton: {
@@ -42,7 +46,7 @@ else
   ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
       <ReduxProvider store={createComposedStore()}>
-        <App />
+        <Main />
       </ReduxProvider>
     </React.StrictMode>
   );

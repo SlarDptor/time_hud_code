@@ -10,7 +10,7 @@ import NoInterface from "../interfaces/NoInterface";
 
 import TopTabs from "./TopTabs";
 
-function App() {
+function Main() {
   const gs = useGeneralStateReader("settings.currentInterface");
 
   // React.useEffect(() => {
@@ -45,4 +45,4 @@ function selectInterface(currentInterface) {
   }
 }
 
-export default App;
+export default Main;
