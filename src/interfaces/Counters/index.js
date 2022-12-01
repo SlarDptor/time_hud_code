@@ -203,7 +203,6 @@ const STYLES = {
   checkboxesColumn: "flex-1 flex items-stretch flex-col",
   leftCheckbox: "text-sm justify-start py-3 border-b-1 border-slate-300",
   rightCheckbox: "text-sm justify-end py-3 border-b-1 border-slate-300",
-  centerCheckbox:  "mt-2 text-sm justify-center py-3 border-b-1 border-slate-300",
   recalculateButton: "mt-4 border-1 border-red-500 text-red-600 px-4 py-2 rounded-md w-8/12 mx-auto",
 
   reloadAlert: {
@@ -228,40 +227,34 @@ function RecalculateMaxesCheckboxes({ alternateDays, closeAlert, onSubmit }) {
 
   return (
     <>
-      <CuteCheckbox
-        onChange={(checked) => onCheck("DNL", checked)}
-        checked={checkedFields.get.DNL}
-        label="Día No Laboral"
-        customDirSty={{ ct: STYLES.centerCheckbox }}
-      />
       <div className={STYLES.checkboxesCt}>
         <div className={STYLES.checkboxesColumn}>
           <CuteCheckbox
-            onChange={(checked) => onCheck("DEE", checked)}
-            checked={checkedFields.get.DEE}
-            label="Día Entre Ejerc."
+            onChange={(checked) => onCheck("DNL", checked)}
+            checked={checkedFields.get.DNL}
+            label="Día No Laboral"
             customDirSty={{ ct: STYLES.leftCheckbox }}
           />
           <CuteCheckbox
-            onChange={(checked) => onCheck("DMP", checked)}
-            checked={checkedFields.get.DMP}
-            label="Día Medios Proy."
+            onChange={(checked) => onCheck("DPR", checked)}
+            checked={checkedFields.get.DPR}
+            label="Día Proy. Reduc."
             customDirSty={{ ct: STYLES.leftCheckbox }}
           />
         </div>
         <div className={STYLES.checkboxesColumn}>
           <CuteCheckbox
             labelPosition="left"
-            onChange={(checked) => onCheck("DDD", checked)}
-            checked={checkedFields.get.DDD}
-            label="Día De Descanso"
+            onChange={(checked) => onCheck("DEE", checked)}
+            checked={checkedFields.get.DEE}
+            label="Día Entre Ejerc."
             customDirSty={{ ct: STYLES.rightCheckbox }}
           />
           <CuteCheckbox
             labelPosition="left"
-            onChange={(checked) => onCheck("DSP", checked)}
-            checked={checkedFields.get.DSP}
-            label="Día Sin Proyectos"
+            onChange={(checked) => onCheck("DDD", checked)}
+            checked={checkedFields.get.DDD}
+            label="Día De Descanso"
             customDirSty={{ ct: STYLES.rightCheckbox }}
           />
         </div>
