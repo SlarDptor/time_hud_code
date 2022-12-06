@@ -85,8 +85,8 @@ export function getRecordInterval(record, nextRecord) {
 }
 
 /**Calculates the max time for each activity category counter */
-export function calculateCountersMaxTimes(altDaysSettings) {
-  return mapValues(COUNTERS_PARAMS, (counterParams) => {
+export function calculateCountersMaxTimes(altDaysSettings, periodType) {
+  return mapValues(COUNTERS_PARAMS[periodType], (counterParams) => {
     const { baseMax, ...counterMaxModifiers } = counterParams;
 
     var maxTime = baseMax;
@@ -105,8 +105,8 @@ export function calculateCountersMaxTimes(altDaysSettings) {
 }
 
 /**Calculates the done time for each activity category counter. */
-export function calculateCountersDoneTime(registry) {
-  var countersDoneTime = mapValues(COUNTERS_PARAMS, () => "0:00");
+export function calculateCountersDoneTime(registry, periodType) {
+  var countersDoneTime = mapValues(COUNTERS_PARAMS[periodType], () => "0:00");
 
   //Ignore the last record which interval can't be calculated.
   for (let r = 0; r < registry.length - 1; r++) {

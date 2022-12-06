@@ -27,3 +27,8 @@ export const INTERFACES = {
   REGISTRY: "registry",
   NO_INTERFACE: "noInterface",
 };
+
+export const PERIOD_TYPES = {
+  STANDARD: "standard",
+  WEIGHT_LOSS: "weightLoss",
+};

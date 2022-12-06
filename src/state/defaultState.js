@@ -5,8 +5,12 @@ import { isEmpty, mapValues } from "lodash";
 import { exists } from "@static/functions";
 
 //prettier-ignore
-import { INTERFACES as IFK } from "@static/values/keys";
-import { CATEGORIES_NAMES, LOCAL_STORAGE_NAME } from "@static/values/config";
+import { INTERFACES as IFK, PERIOD_TYPES as PTK } from "@static/values/keys";
+import {
+  CATEGORIES_NAMES,
+  LOCAL_STORAGE_NAME,
+  ALTERNATE_DAYS,
+} from "@static/values/config";
 
 /**Error thrown when some actions were defined but not handled by the reducer.
  * @param {string} stateName @param {string} type */
@@ -36,12 +40,8 @@ export const DEFAULT_GENERAL_STATE = {
   })),
   settings: {
     currentInterface: IFK.NO_INTERFACE,
-    alternateDays: {
-      DNL: false,
-      DEE: false,
-      DDD: false,
-      DPR: false,
-    },
+    periodType: PTK.STANDARD,
+    alternateDays: mapValues(ALTERNATE_DAYS[PTK.STANDARD], () => false),
     reassigningMinutes: 0,
   },
 };
@@ -49,7 +49,7 @@ export const DEFAULT_GENERAL_STATE = {
 /**
  * @typedef {Array<TimeRecord>} RegistryState
  * @typedef {{[category: string]: CategoryCounter}} CountersState
- * @typedef {{alternateDays: any, currentInterface: string, reassigningMinutes: number, lastVersion: string}} SettingsState
+ * @typedef {{alternateDays: any, currentInterface: string, reassigningMinutes: number, periodType: string}} SettingsState
  *
  * @typedef {Object} TimeRecord
  * @property {string} time The time at which the activity began.

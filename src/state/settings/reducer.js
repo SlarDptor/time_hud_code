@@ -17,6 +17,8 @@ export default function reducer(prevState = defaultState.settings, action) {
       return handlers.setInterface(action.params);
     case TYPES.SET_ALTERNATE_DAY:
       return handlers.setAlternateDays(action.params);
+    case TYPES.SET_PERIOD_TYPE:
+      return handlers.setPeriodType(action.params);
     case TYPES.ADD_MINUTES:
       return handlers.addMinutes(action.params);
     case TYPES.TAKE_MINUTES:

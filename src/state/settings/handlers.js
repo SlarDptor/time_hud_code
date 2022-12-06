@@ -21,6 +21,11 @@ function getHandlers(prevState, newState) {
       return newState;
     },
 
+    setPeriodType({ newPeriodType }) {
+      newState.periodType = newPeriodType;
+      return newState;
+    },
+
     addMinutes({ minutes }) {
       newState.reassigningMinutes += minutes;
       return newState;

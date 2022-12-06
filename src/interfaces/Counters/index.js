@@ -1,19 +1,25 @@
 import React from "react";
+import { chunk } from "lodash";
 import { BsCheckCircle, BsExclamationCircleFill } from "react-icons/bs";
 import { IoReloadOutline, IoWarningOutline } from "react-icons/io5";
+import { VscArrowSwap } from "react-icons/vsc";
 
 import {
   CuteCheckbox,
   CuteModal,
   displayCuteAlert,
   useModalState,
+  CuteButton,
 } from "@common/index";
 import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
 import { ops } from "@static/functions";
 import { useObjectState } from "@static/react";
 
-import { CATEGORIES_NAMES as CGN } from "@static/values/config";
-import { ACTIVITY_CATEGORIES as ACK } from "@static/values/keys";
+import { ALTERNATE_DAYS, CATEGORIES_NAMES as CGN } from "@static/values/config";
+import {
+  ACTIVITY_CATEGORIES as ACK,
+  PERIOD_TYPES as PTK,
+} from "@static/values/keys";
 
 import CountersModal from "./Modal";
 
@@ -28,13 +34,17 @@ function CountersInterface() {
       title: "Recalcular los máximos",
       body: {
         Component: RecalculateMaxesCheckboxes,
+        periodType: gs.settings.periodType,
         alternateDays: gs.settings.alternateDays,
-        onSubmit: (newAlternateDays) => {
-          updateGS.settings.takeMinutes(gs.settings.reassigningMinutes);
+        onSubmit: (newAlternateDays, newPeriodType) => {
+          updateGS.settings.takeMinutes(gs.settings.reassigningMinutes); //Reset reassigning minutes.
+
+          updateGS.settings.setPeriodType(newPeriodType); //Set new period type
+          updateGS.settings.setAlternateDays(newAlternateDays); //Set new alt days config
+
           updateGS.counters.setCountersMaxes(
-            ops.calculateCountersMaxTimes(newAlternateDays)
-          );
-          updateGS.settings.setAlternateDays(newAlternateDays);
+            ops.calculateCountersMaxTimes(newAlternateDays, newPeriodType)
+          ); //Calculate and set new maxes.
         },
       },
       customStyles: STYLES.reloadAlert,
@@ -43,9 +53,9 @@ function CountersInterface() {
 
   React.useEffect(() => {
     updateGS.counters.setCountersDone(
-      ops.calculateCountersDoneTime(gs.registry)
+      ops.calculateCountersDoneTime(gs.registry, gs.settings.periodType)
     );
-  }, [gs.registry]);
+  }, [gs.registry, gs.settings.periodType]);
 
   function changeMax(categoryKey, operation) {
     const currentMax = gs.counters[categoryKey].max;
@@ -72,10 +82,19 @@ function CountersInterface() {
 
   return (
     <>
-      <button onClick={calculateMaxes} className={STYLES.recalculate}>
-        <IoReloadOutline className={STYLES.recalculateIcon} /> Recalcular
-        máximos
-      </button>
+      {
+        <button onClick={calculateMaxes} className={STYLES.recalculate}>
+          <IoReloadOutline className={STYLES.recalculateIcon} />{" "}
+          {displayingCounters.length > 0
+            ? "Recalcular Máximos"
+            : "Calcular Máximos"}
+        </button>
+      }
+
+      <p className={STYLES.periodType}>
+        Período{" "}
+        {gs.settings.periodType == PTK.STANDARD ? "Estándar" : "Bajar de Peso"}
+      </p>
 
       <div className={STYLES.listCt}>
         <div className={STYLES.header}>
@@ -170,7 +189,9 @@ const STYLES = {
   recalculate: "flex justify-center items-center text-center text-slate-600 text-light border-1 border-purple-500 w-8/12 rounded-md mx-auto text-purple-500 py-2 mt-2 focus:text-slate-100 focus:bg-purple-500",
   recalculateIcon: "text-lg mr-1",
 
-  listCt: "mt-6",
+  periodType: "mt-6 text-sm text-teal-500 text-light text-center border-x-1 border-t-1 border-teal-400 border-dotted pt-1 w-7/12 rounded-t-md mx-auto",
+
+  listCt: "mt-2",
   header: "text-default text-slate-700 flex justify-center items-center border-t-1 border-b-1 border-purple-400",
 
   categoryColumn: "w-3/12 py-3 shrink-0 text-center ",
@@ -199,10 +220,10 @@ const STYLES = {
 
   message: "mt-6 text-sm text-slate-400 text-center text-light",
 
-  checkboxesCt: "mb-2 flex",
-  checkboxesColumn: "flex-1 flex items-stretch flex-col",
-  leftCheckbox: "text-sm justify-start py-3 border-b-1 border-slate-300",
-  rightCheckbox: "text-sm justify-end py-3 border-b-1 border-slate-300",
+  checkboxesCt: "my-4 mt-6 flex flex-col",
+  checkboxesRow: "flex justify-between py-3 border-b-1 border-slate-300",
+  leftCheckbox: "text-sm justify-start",
+  rightCheckbox: "text-sm justify-end",
   recalculateButton: "mt-4 border-1 border-red-500 text-red-600 px-4 py-2 rounded-md w-8/12 mx-auto",
 
   reloadAlert: {
@@ -213,7 +234,13 @@ const STYLES = {
   },
 };
 
-function RecalculateMaxesCheckboxes({ alternateDays, closeAlert, onSubmit }) {
+function RecalculateMaxesCheckboxes({
+  alternateDays,
+  periodType,
+  closeAlert,
+  onSubmit,
+}) {
+  const [selectedType, setSelectedType] = React.useState(periodType);
   const checkedFields = useObjectState(alternateDays);
 
   function onCheck(alternateDayKey, checked) {
@@ -222,42 +249,47 @@ function RecalculateMaxesCheckboxes({ alternateDays, closeAlert, onSubmit }) {
 
   function submit() {
     closeAlert();
-    onSubmit(checkedFields.get);
+    onSubmit(checkedFields.get, selectedType);
   }
 
   return (
     <>
       <div className={STYLES.checkboxesCt}>
-        <div className={STYLES.checkboxesColumn}>
-          <CuteCheckbox
-            onChange={(checked) => onCheck("DNL", checked)}
-            checked={checkedFields.get.DNL}
-            label="Día No Laboral"
-            customDirSty={{ ct: STYLES.leftCheckbox }}
-          />
-          <CuteCheckbox
-            onChange={(checked) => onCheck("DPR", checked)}
-            checked={checkedFields.get.DPR}
-            label="Día Proy. Reduc."
-            customDirSty={{ ct: STYLES.leftCheckbox }}
-          />
-        </div>
-        <div className={STYLES.checkboxesColumn}>
-          <CuteCheckbox
-            labelPosition="left"
-            onChange={(checked) => onCheck("DEE", checked)}
-            checked={checkedFields.get.DEE}
-            label="Día Entre Ejerc."
-            customDirSty={{ ct: STYLES.rightCheckbox }}
-          />
-          <CuteCheckbox
-            labelPosition="left"
-            onChange={(checked) => onCheck("DDD", checked)}
-            checked={checkedFields.get.DDD}
-            label="Día De Descanso"
-            customDirSty={{ ct: STYLES.rightCheckbox }}
-          />
-        </div>
+        <CuteButton
+          Icon={VscArrowSwap}
+          size="smaller"
+          color="purple"
+          customDirSty={{ button: "mb-4" }}
+          onClick={() =>
+            setSelectedType(
+              selectedType == PTK.STANDARD ? PTK.WEIGHT_LOSS : PTK.STANDARD
+            )
+          }
+        >
+          Cambiar a período{" "}
+          {selectedType == PTK.STANDARD ? "Bajar de Peso" : "Estándar"}{" "}
+        </CuteButton>
+
+        {chunk(Object.keys(ALTERNATE_DAYS[selectedType]), 2).map(
+          (altDaysRow, index) => (
+            <div key={index} className={STYLES.checkboxesRow}>
+              <CuteCheckbox
+                labelPosition="right"
+                onChange={(checked) => onCheck(altDaysRow[0], checked)}
+                checked={checkedFields.get[altDaysRow[0]]}
+                label={ALTERNATE_DAYS[selectedType][altDaysRow[0]]}
+                customDirSty={{ ct: STYLES.leftCheckbox }}
+              />
+              <CuteCheckbox
+                labelPosition="left"
+                onChange={(checked) => onCheck(altDaysRow[1], checked)}
+                checked={checkedFields.get[altDaysRow[1]]}
+                label={ALTERNATE_DAYS[selectedType][altDaysRow[1]]}
+                customDirSty={{ ct: STYLES.rightCheckbox }}
+              />
+            </div>
+          )
+        )}
       </div>
       <button onClick={submit} className={STYLES.recalculateButton}>
         Recalcular

@@ -37,21 +37,13 @@ function CountersModal({ categoryKey }) {
 
       <div className={STYLES.listCt}>
         <div className={STYLES.header}>
-          <p className={STYLES.fromColumn + STYLES.fromHeader}>
-            Desde{" "}
-            {order == "decreasing" ? (
-              <MdArrowDropDown
-                className={STYLES.orderIcon}
-                onClick={toggleOrder}
-              />
-            ) : (
-              <MdArrowDropUp
-                className={STYLES.orderIcon}
-                onClick={toggleOrder}
-              />
-            )}
+          <p
+            onClick={toggleOrder}
+            className={STYLES.fromColumn + STYLES.fromHeader}
+          >
+            Intervalo{" "}
+            {order == "decreasing" ? <MdArrowDropDown /> : <MdArrowDropUp />}
           </p>
-          <p className={STYLES.untilColumn}>Hasta</p>
           <p className={STYLES.durationColumn}>Duración</p>
           <p className={STYLES.nameColumn}>Nombre</p>
         </div>
@@ -62,8 +54,9 @@ function CountersModal({ categoryKey }) {
               const nextRecord = gs.registry[record.index + 1];
               return (
                 <div key={record.index} className={STYLES.row}>
-                  <p className={STYLES.fromColumn}>{record.time}</p>
-                  <p className={STYLES.untilColumn}>{nextRecord.time}</p>
+                  <p
+                    className={STYLES.fromColumn}
+                  >{`${record.time} - ${nextRecord.time}`}</p>
                   <p className={STYLES.durationColumn}>
                     {ops.getRecordInterval(record, nextRecord)}
                   </p>
@@ -90,12 +83,10 @@ const STYLES = {
 
   listCt: "mt-4 ",
   header: "text-default text-slate-700 flex justify-center items-center border-b-1 border-purple-400 py-1 mb-2",
-  fromHeader: "flex justify-center items-center",
-  orderIcon: "cursor-pointer",
+  fromHeader: "flex justify-center items-center cursor-pointer",
 
   nameColumn: "grow text-center ",
-  fromColumn: "w-5/24 shrink-0 text-center ",
-  untilColumn: "w-5/24 shrink-0 text-center ",
+  fromColumn: "w-9/24 shrink-0 text-center ",
   durationColumn: "w-3/12 shrink-0 text-center ",
 
   listContent: "flex flex-col h-screen-4/12 overflow-y-scroll ",
