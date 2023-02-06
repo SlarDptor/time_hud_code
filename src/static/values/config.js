@@ -31,14 +31,11 @@ export const CATEGORIES_NAMES = {
 
 export const ALTERNATE_DAYS = {
   [PTK.STANDARD]: {
-    DNL: "Día No Laboral",
     DPR: "Día Proy. Red.",
-    DDE: "Día De Ejercicio",
+    DSP: "Día Sin Proy.",
+    DDN: "Día De Natación",
     DDD: "Día De Descanso",
-  },
-  [PTK.WEIGHT_LOSS]: {
     DNL: "Día No Laboral",
-    DDD: "Día De Descanso",
   },
 };
 
@@ -49,46 +46,24 @@ export const COUNTERS_PARAMS = {
       DNL: { change: "2:00", sign: "-" },
     },
     [ACK.PROY]: {
-      baseMax: "5:00",
-      DDE: { change: "2:00", sign: "-" },
-      DDD: { change: "2:00", sign: "-" },
-      DPR: { change: "3:00", sign: "-" },
-    },
-    [ACK.BICI]: {
-      baseMax: "0:00",
-      DDE: { change: "2:00", sign: "+" },
-    },
-    [ACK.TD]: {
-      baseMax: "2:00",
-    },
-    [ACK.ENTR]: {
       baseMax: "4:00",
-      DNL: { change: "2:00", sign: "+" },
-      DDD: { change: "2:00", sign: "+" },
-      DPR: { change: "3:00", sign: "+" },
-    },
-    [ACK.VIDA]: {
-      baseMax: "3:00",
-    },
-  },
-  [PTK.WEIGHT_LOSS]: {
-    [ACK.SANA]: {
-      baseMax: "1:30",
-      DNL: { change: "1:30", sign: "-" },
-    },
-    [ACK.PROY]: {
-      baseMax: "2:00",
+      DPR: { change: "2:00", sign: "-" },
+      DSP: { change: "4:00", sign: "-" },
     },
     [ACK.BICI]: {
       baseMax: "2:00",
+      DDN: { change: "2:00", sign: "+" },
       DDD: { change: "2:00", sign: "-" },
     },
     [ACK.TD]: {
       baseMax: "2:00",
     },
     [ACK.ENTR]: {
-      baseMax: "5:30",
-      DNL: { change: "1:30", sign: "+" },
+      baseMax: "3:00",
+      DNL: { change: "2:00", sign: "+" },
+      DPR: { change: "2:30", sign: "+" },
+      DSP: { change: "5:00", sign: "+" },
+      DDN: { change: "2:00", sign: "-" },
       DDD: { change: "2:00", sign: "+" },
     },
     [ACK.VIDA]: {
@@ -96,5 +71,7 @@ export const COUNTERS_PARAMS = {
     },
   },
 };
+
+export const PERIOD_TYPES_ENABLED = Object.keys(PTK).length > 1;
 
 export const DAY_DURATION = "16:00";

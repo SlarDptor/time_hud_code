@@ -15,7 +15,11 @@ import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
 import { ops } from "@static/functions";
 import { useObjectState } from "@static/react";
 
-import { ALTERNATE_DAYS, CATEGORIES_NAMES as CGN } from "@static/values/config";
+import {
+  ALTERNATE_DAYS,
+  CATEGORIES_NAMES as CGN,
+  PERIOD_TYPES_ENABLED,
+} from "@static/values/config";
 import {
   ACTIVITY_CATEGORIES as ACK,
   PERIOD_TYPES as PTK,
@@ -82,19 +86,21 @@ function CountersInterface() {
 
   return (
     <>
-      {
-        <button onClick={calculateMaxes} className={STYLES.recalculate}>
-          <IoReloadOutline className={STYLES.recalculateIcon} />{" "}
-          {displayingCounters.length > 0
-            ? "Recalcular Máximos"
-            : "Calcular Máximos"}
-        </button>
-      }
+      <button onClick={calculateMaxes} className={STYLES.recalculate}>
+        <IoReloadOutline className={STYLES.recalculateIcon} />{" "}
+        {displayingCounters.length > 0
+          ? "Recalcular Máximos"
+          : "Calcular Máximos"}
+      </button>
 
-      <p className={STYLES.periodType}>
-        Período{" "}
-        {gs.settings.periodType == PTK.STANDARD ? "Estándar" : "Bajar de Peso"}
-      </p>
+      {PERIOD_TYPES_ENABLED && (
+        <p className={STYLES.periodType}>
+          Período{" "}
+          {gs.settings.periodType == PTK.STANDARD
+            ? "Estándar"
+            : "Bajar de Peso"}
+        </p>
+      )}
 
       <div className={STYLES.listCt}>
         <div className={STYLES.header}>
@@ -186,10 +192,10 @@ function CountersInterface() {
 
 //prettier-ignore
 const STYLES = {
-  recalculate: "flex justify-center items-center text-center text-slate-600 text-light border-1 border-purple-500 w-8/12 rounded-md mx-auto text-purple-500 py-2 mt-2 focus:text-slate-100 focus:bg-purple-500",
+  recalculate: "flex justify-center items-center text-center text-slate-600 text-light border-1 border-purple-500 w-8/12 rounded-md mx-auto text-purple-500 py-2 mt-2 mb-4 focus:text-slate-100 focus:bg-purple-500",
   recalculateIcon: "text-lg mr-1",
 
-  periodType: "mt-6 text-sm text-teal-500 text-light text-center border-x-1 border-t-1 border-teal-400 border-dotted pt-1 w-7/12 rounded-t-md mx-auto",
+  periodType: "mt-2 text-sm text-teal-500 text-light text-center border-x-1 border-t-1 border-teal-400 border-dotted pt-1 w-7/12 rounded-t-md mx-auto",
 
   listCt: "mt-2",
   header: "text-default text-slate-700 flex justify-center items-center border-t-1 border-b-1 border-purple-400",
@@ -255,20 +261,23 @@ function RecalculateMaxesCheckboxes({
   return (
     <>
       <div className={STYLES.checkboxesCt}>
-        <CuteButton
-          Icon={VscArrowSwap}
-          size="smaller"
-          color="purple"
-          customDirSty={{ button: "mb-4" }}
-          onClick={() =>
-            setSelectedType(
-              selectedType == PTK.STANDARD ? PTK.WEIGHT_LOSS : PTK.STANDARD
-            )
-          }
-        >
-          Cambiar a período{" "}
-          {selectedType == PTK.STANDARD ? "Bajar de Peso" : "Estándar"}{" "}
-        </CuteButton>
+        {PERIOD_TYPES_ENABLED && (
+          <CuteButton
+            Icon={VscArrowSwap}
+            size="smaller"
+            color="purple"
+            customDirSty={{ button: "mb-4" }}
+            onClick={() =>
+              setSelectedType(
+                // selectedType == PTK.STANDARD ? PTK.WEIGHT_LOSS : PTK.STANDARD
+                PTK.STANDARD
+              )
+            }
+          >
+            Cambiar a período{" "}
+            {selectedType == PTK.STANDARD ? "Bajar de Peso" : "Estándar"}{" "}
+          </CuteButton>
+        )}
 
         {chunk(Object.keys(ALTERNATE_DAYS[selectedType]), 2).map(
           (altDaysRow, index) => (
@@ -280,13 +289,15 @@ function RecalculateMaxesCheckboxes({
                 label={ALTERNATE_DAYS[selectedType][altDaysRow[0]]}
                 customDirSty={{ ct: STYLES.leftCheckbox }}
               />
-              <CuteCheckbox
-                labelPosition="left"
-                onChange={(checked) => onCheck(altDaysRow[1], checked)}
-                checked={checkedFields.get[altDaysRow[1]]}
-                label={ALTERNATE_DAYS[selectedType][altDaysRow[1]]}
-                customDirSty={{ ct: STYLES.rightCheckbox }}
-              />
+              {altDaysRow[1] && (
+                <CuteCheckbox
+                  labelPosition="left"
+                  onChange={(checked) => onCheck(altDaysRow[1], checked)}
+                  checked={checkedFields.get[altDaysRow[1]]}
+                  label={ALTERNATE_DAYS[selectedType][altDaysRow[1]]}
+                  customDirSty={{ ct: STYLES.rightCheckbox }}
+                />
+              )}
             </div>
           )
         )}

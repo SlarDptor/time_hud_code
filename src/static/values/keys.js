@@ -28,7 +28,7 @@ export const INTERFACES = {
   NO_INTERFACE: "noInterface",
 };
 
+//Adding more than one will automatically enable the period-types interface features.
 export const PERIOD_TYPES = {
   STANDARD: "standard",
-  WEIGHT_LOSS: "weightLoss",
 };
