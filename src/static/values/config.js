@@ -42,13 +42,13 @@ export const ALTERNATE_DAYS = {
 export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.SANA]: {
-      baseMax: "1:00",
-      DNL: { change: "1:00", sign: "-" },
+      baseMax: "1:30",
+      DNL: { change: "1:30", sign: "-" },
     },
     [ACK.PROY]: {
-      baseMax: "5:00",
-      DPR: { change: "2:30", sign: "-" },
-      DSP: { change: "5:00", sign: "-" },
+      baseMax: "4:30",
+      DPR: { change: "2:00", sign: "-" },
+      DSP: { change: "4:30", sign: "-" },
     },
     [ACK.BICI]: {
       baseMax: "2:00",
@@ -60,9 +60,9 @@ export const COUNTERS_PARAMS = {
     },
     [ACK.ENTR]: {
       baseMax: "3:00",
-      DNL: { change: "2:00", sign: "+" },
-      DPR: { change: "2:30", sign: "+" },
-      DSP: { change: "5:00", sign: "+" },
+      DNL: { change: "1:30", sign: "+" },
+      DPR: { change: "2:00", sign: "+" },
+      DSP: { change: "4:30", sign: "+" },
       DDN: { change: "2:00", sign: "-" },
       DDD: { change: "2:00", sign: "+" },
     },

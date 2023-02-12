@@ -32,12 +32,12 @@ if (storedVersion !== VERSION) {
         localStorage.removeItem(LOCAL_STORAGE_NAME);
         localStorage.removeItem(STORED_VERSION_NAME);
         localStorage.setItem(STORED_VERSION_NAME, VERSION);
-        window.location.pathname = "/";
+        window.location.pathname = "/time_hud";
       },
     },
     secondButton: {
       text: "Todavía no",
-      onClick: () => (window.location.href = "/"),
+      onClick: () => (window.location.href = "/time_hud"),
     },
   });
 }
