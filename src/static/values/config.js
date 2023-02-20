@@ -22,8 +22,9 @@ export const BREAKPOINTS_WIDTHS = {
 
 export const CATEGORIES_NAMES = {
   [ACK.SANA]: "Sana",
+  [ACK.KAMAI]: "Kamai",
   [ACK.PROY]: "Proy.",
-  [ACK.BICI]: "Bici",
+  [ACK.EJ]: "Ejerc.",
   [ACK.TD]: "T.D.",
   [ACK.ENTR]: "Entret.",
   [ACK.VIDA]: "Vida",
@@ -31,26 +32,29 @@ export const CATEGORIES_NAMES = {
 
 export const ALTERNATE_DAYS = {
   [PTK.STANDARD]: {
-    DPR: "Día Proy. Red.",
+    DNL: "Día No Laboral",
     DSP: "Día Sin Proy.",
     DDN: "Día De Natación",
     DDD: "Día De Descanso",
-    DNL: "Día No Laboral",
   },
 };
 
 export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.SANA]: {
-      baseMax: "1:30",
-      DNL: { change: "1:30", sign: "-" },
+      baseMax: "1:00",
+      DNL: { change: "1:00", sign: "-" },
+    },
+    [ACK.KAMAI]: {
+      baseMax: "3:00",
+      DNL: { change: "3:00", sign: "-" },
     },
     [ACK.PROY]: {
-      baseMax: "4:30",
-      DPR: { change: "2:00", sign: "-" },
-      DSP: { change: "4:30", sign: "-" },
+      baseMax: "2:00",
+      DSP: { change: "2:00", sign: "-" },
+      DDN: { change: "1:00", sign: "-" },
     },
-    [ACK.BICI]: {
+    [ACK.EJ]: {
       baseMax: "2:00",
       DDN: { change: "2:00", sign: "+" },
       DDD: { change: "2:00", sign: "-" },
@@ -60,10 +64,9 @@ export const COUNTERS_PARAMS = {
     },
     [ACK.ENTR]: {
       baseMax: "3:00",
-      DNL: { change: "1:30", sign: "+" },
-      DPR: { change: "2:00", sign: "+" },
-      DSP: { change: "4:30", sign: "+" },
-      DDN: { change: "2:00", sign: "-" },
+      DNL: { change: "4:00", sign: "+" },
+      DSP: { change: "2:00", sign: "+" },
+      DDN: { change: "1:00", sign: "-" },
       DDD: { change: "2:00", sign: "+" },
     },
     [ACK.VIDA]: {

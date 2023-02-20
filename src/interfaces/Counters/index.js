@@ -313,7 +313,7 @@ function RecalculateMaxesCheckboxes({
 const MAX_IS = {
   [ACK.SANA]: "goal",
   [ACK.PROY]: "goal",
-  [ACK.BICI]: "goal",
+  [ACK.EJ]: "goal",
 
   [ACK.TD]: "limit",
   [ACK.ENTR]: "limit",

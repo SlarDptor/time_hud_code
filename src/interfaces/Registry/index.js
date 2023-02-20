@@ -175,7 +175,7 @@ function RegistryInterface() {
 //prettier-ignore
 const STYLES = {
   top: "flex justify-around items-center",
-  date: "mt-1 text-center text-slate-500 text-2xl",
+  date: "mt-1 text-center text-slate-500 text-xl",
   dateNumbers: "ml-2",
   reload: "flex justify-center items-center px-4 py-1 border-b-1 border-slate-300 text-slate-500 focus:border-slate-500 focus:text-slate-700",
   reloadIcon: "mr-1",

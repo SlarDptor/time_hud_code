@@ -15,8 +15,9 @@ export const BREAKPOINTS = {
 
 export const ACTIVITY_CATEGORIES = {
   SANA: "sana",
+  KAMAI: "kamai",
   PROY: "proy",
-  BICI: "bici",
+  EJ: "ej",
   TD: "td",
   ENTR: "entr",
   VIDA: "vida",
