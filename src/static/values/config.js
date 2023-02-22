@@ -26,7 +26,9 @@ export const CATEGORIES_NAMES = {
   [ACK.PROY]: "Proy.",
   [ACK.EJ]: "Ejerc.",
   [ACK.TD]: "T.D.",
-  [ACK.ENTR]: "Entret.",
+  [ACK.VICIO]: "Vicio",
+  [ACK.HOO]: "Hoo",
+  [ACK.PAJA]: "Paja",
   [ACK.VIDA]: "Vida",
 };
 
@@ -52,7 +54,7 @@ export const COUNTERS_PARAMS = {
     [ACK.PROY]: {
       baseMax: "2:00",
       DSP: { change: "2:00", sign: "-" },
-      DDN: { change: "1:00", sign: "-" },
+      DDN: { change: "0:30", sign: "-" },
     },
     [ACK.EJ]: {
       baseMax: "2:00",
@@ -62,15 +64,29 @@ export const COUNTERS_PARAMS = {
     [ACK.TD]: {
       baseMax: "2:00",
     },
-    [ACK.ENTR]: {
-      baseMax: "3:00",
-      DNL: { change: "4:00", sign: "+" },
-      DSP: { change: "2:00", sign: "+" },
-      DDN: { change: "1:00", sign: "-" },
-      DDD: { change: "2:00", sign: "+" },
+    [ACK.VICIO]: {
+      baseMax: "2:00",
+      DNL: { change: "2:00", sign: "+" },
+      DSP: { change: "1:00", sign: "+" },
+      DDN: { change: "0:45", sign: "-" },
+      DDD: { change: "1:00", sign: "+" },
+    },
+    [ACK.HOO]: {
+      baseMax: "1:00",
+      DNL: { change: "1:00", sign: "+" },
+      DSP: { change: "0:30", sign: "+" },
+      DDN: { change: "0:25", sign: "-" },
+      DDD: { change: "0:30", sign: "+" },
+    },
+    [ACK.PAJA]: {
+      baseMax: "1:00",
+      DNL: { change: "1:00", sign: "+" },
+      DSP: { change: "0:30", sign: "+" },
+      DDN: { change: "0:20", sign: "-" },
+      DDD: { change: "0:30", sign: "+" },
     },
     [ACK.VIDA]: {
-      baseMax: "3:00",
+      baseMax: "2:00",
     },
   },
 };

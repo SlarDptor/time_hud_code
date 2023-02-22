@@ -1,5 +1,5 @@
 import React from "react";
-import { chunk } from "lodash";
+import { chunk, mapValues } from "lodash";
 import { BsCheckCircle, BsExclamationCircleFill } from "react-icons/bs";
 import { IoReloadOutline, IoWarningOutline } from "react-icons/io5";
 import { VscArrowSwap } from "react-icons/vsc";
@@ -178,6 +178,15 @@ function CountersInterface() {
           </p>
         )}
 
+        <p className={STYLES.maxSum}>
+          Suma de máximos:{" "}
+          <span className={STYLES.maxSumAmount}>
+            {Object.values(mapValues(gs.counters, (v) => v.max)).reduce(
+              (result, curr) => ops.addTimes(result, curr)
+            )}
+          </span>
+        </p>
+
         <p className={STYLES.message}>
           {"Completitud y Consistencia > Calidad Diaria"}
         </p>
@@ -220,6 +229,9 @@ const STYLES = {
   changeMaxCell: "flex justify-around cursor-pointer",
   take5Button: "w-7 border-1 border-orange-400 leading-none p-1 rounded-md text-sm text-orange-400 focus:bg-orange-400 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
   add5Button: "w-7 border-1 border-emerald-400 leading-none p-1 rounded-md text-sm text-emerald-400 focus:bg-emerald-400 focus:text-slate-100 disabled:border-slate-300 disabled:text-slate-300",
+
+  maxSum: "border-y-1 py-2 text-center text-sm border-slate-300 mt-4 text-light text-slate-500",
+  maxSumAmount: "ml-1 text-base text-default text-slate-700 text-opacity-90",
 
   reassigningMinutes: "mt-6 text-center border-1 border-slate-500 w-8/12 py-2 mx-auto rounded-md text-light text-slate-700",
   reassigningMinutesNumber: "relative text-lg text-purple-500 ml-1 top-1px",
@@ -316,7 +328,7 @@ const MAX_IS = {
   [ACK.EJ]: "goal",
 
   [ACK.TD]: "limit",
-  [ACK.ENTR]: "limit",
+  [ACK.VICIO]: "limit",
   [ACK.VIDA]: "limit",
 };
 

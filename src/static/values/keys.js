@@ -19,7 +19,9 @@ export const ACTIVITY_CATEGORIES = {
   PROY: "proy",
   EJ: "ej",
   TD: "td",
-  ENTR: "entr",
+  VICIO: "vicio",
+  HOO: "hoo",
+  PAJA: "paja",
   VIDA: "vida",
 };
 
