@@ -50,6 +50,7 @@ export const COUNTERS_PARAMS = {
     [ACK.KAMAI]: {
       baseMax: "3:00",
       DNL: { change: "3:00", sign: "-" },
+      DDN: { change: "0:30", sign: "-" },
     },
     [ACK.PROY]: {
       baseMax: "2:00",
@@ -65,28 +66,29 @@ export const COUNTERS_PARAMS = {
       baseMax: "2:00",
     },
     [ACK.VICIO]: {
-      baseMax: "2:00",
+      baseMax: "1:50",
       DNL: { change: "2:00", sign: "+" },
       DSP: { change: "1:00", sign: "+" },
-      DDN: { change: "0:45", sign: "-" },
+      DDN: { change: "0:10", sign: "-" },
       DDD: { change: "1:00", sign: "+" },
     },
     [ACK.HOO]: {
-      baseMax: "1:00",
+      baseMax: "0:50",
       DNL: { change: "1:00", sign: "+" },
       DSP: { change: "0:30", sign: "+" },
-      DDN: { change: "0:25", sign: "-" },
+      DDN: { change: "0:10", sign: "-" },
       DDD: { change: "0:30", sign: "+" },
     },
     [ACK.PAJA]: {
-      baseMax: "1:00",
+      baseMax: "0:50",
       DNL: { change: "1:00", sign: "+" },
       DSP: { change: "0:30", sign: "+" },
-      DDN: { change: "0:20", sign: "-" },
+      DDN: { change: "0:10", sign: "-" },
       DDD: { change: "0:30", sign: "+" },
     },
     [ACK.VIDA]: {
-      baseMax: "2:00",
+      baseMax: "2:30",
+      DDN: { change: "0:30", sign: "-" },
     },
   },
 };
