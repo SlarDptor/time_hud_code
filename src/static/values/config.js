@@ -22,7 +22,7 @@ export const BREAKPOINTS_WIDTHS = {
 
 export const CATEGORIES_NAMES = {
   [ACK.SANA]: "Sana",
-  [ACK.KAMAI]: "Kamai",
+  // [ACK.KAMAI]: "Kamai",
   [ACK.PROY]: "Proy.",
   [ACK.EJ]: "Ejerc.",
   [ACK.TD]: "T.D.",
@@ -35,7 +35,7 @@ export const CATEGORIES_NAMES = {
 export const ALTERNATE_DAYS = {
   [PTK.STANDARD]: {
     DNL: "Día No Laboral",
-    DSP: "Día Sin Proy.",
+    DPR: "Día Proy. Red.",
     DDN: "Día De Natación",
     DDD: "Día De Descanso",
   },
@@ -47,15 +47,16 @@ export const COUNTERS_PARAMS = {
       baseMax: "1:00",
       DNL: { change: "1:00", sign: "-" },
     },
-    [ACK.KAMAI]: {
-      baseMax: "3:00",
-      DNL: { change: "3:00", sign: "-" },
-      DDN: { change: "0:30", sign: "-" },
-    },
+    // [ACK.KAMAI]: {
+    //   baseMax: "3:00",
+    //   DNL: { change: "3:00", sign: "-" },
+    //   DDN: { change: "0:30", sign: "-" },
+    // },
     [ACK.PROY]: {
-      baseMax: "2:00",
-      DSP: { change: "2:00", sign: "-" },
-      DDN: { change: "0:30", sign: "-" },
+      baseMax: "5:00",
+      DPR: { change: "2:00", sign: "-" },
+      DNL: { change: "2:00", sign: "-" },
+      DDN: { change: "1:00", sign: "-" },
     },
     [ACK.EJ]: {
       baseMax: "2:00",
@@ -67,22 +68,22 @@ export const COUNTERS_PARAMS = {
     },
     [ACK.VICIO]: {
       baseMax: "1:50",
-      DNL: { change: "2:00", sign: "+" },
-      DSP: { change: "1:00", sign: "+" },
+      DNL: { change: "1:40", sign: "+" },
+      DPR: { change: "1:00", sign: "+" },
       DDN: { change: "0:10", sign: "-" },
       DDD: { change: "1:00", sign: "+" },
     },
     [ACK.HOO]: {
       baseMax: "0:50",
-      DNL: { change: "1:00", sign: "+" },
-      DSP: { change: "0:30", sign: "+" },
+      DNL: { change: "0:40", sign: "+" },
+      DPR: { change: "0:30", sign: "+" },
       DDN: { change: "0:10", sign: "-" },
       DDD: { change: "0:30", sign: "+" },
     },
     [ACK.PAJA]: {
       baseMax: "0:50",
-      DNL: { change: "1:00", sign: "+" },
-      DSP: { change: "0:30", sign: "+" },
+      DNL: { change: "0:40", sign: "+" },
+      DPR: { change: "0:30", sign: "+" },
       DDN: { change: "0:10", sign: "-" },
       DDD: { change: "0:30", sign: "+" },
     },
