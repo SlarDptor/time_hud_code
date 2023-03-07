@@ -14,7 +14,7 @@ export const BREAKPOINTS = {
 };
 
 export const ACTIVITY_CATEGORIES = {
-  KAMAI: "kamai",
+  TRABAJO: "trabajo",
   PROY: "proy",
   EJ: "ej",
   TD: "td",

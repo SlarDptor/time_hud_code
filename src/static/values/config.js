@@ -21,7 +21,7 @@ export const BREAKPOINTS_WIDTHS = {
 };
 
 export const CATEGORIES_NAMES = {
-  [ACK.KAMAI]: "Kamai",
+  [ACK.TRABAJO]: "Trabajo",
   [ACK.PROY]: "Proy.",
   [ACK.EJ]: "Ejerc.",
   [ACK.TD]: "T.D.",
@@ -33,25 +33,28 @@ export const CATEGORIES_NAMES = {
 
 export const ALTERNATE_DAYS = {
   [PTK.STANDARD]: {
-    DTR: "Día Tranqui", //Día laboral reducido. 20 por mes.
-    DNL: "Día No Laboral", //Día sin trabajo principal (Kamai por ahora). Consume 2 DTR
+    DTR: "Día Tranqui", //Día laboral reducido. 5 por semana.
+    DNL: "Día No Laboral", //Día sin trabajo y proyectos mínimo. Consume 2 DTR. No aplicable en DDE ni DTR.
     DDE: "Día De Ejercicio", //Lunes, miércoles y viernes.
   },
 };
 
 //CONSISTENCIA > INTENSIDAD
+//De nada sirve aumentar la productividad si a las 2 semanas te termina quemando y tenes que descansar.
 export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
-    [ACK.KAMAI]: {
-      // Incluye también trabajos restantes de Sana.
-      baseMax: "4:00",
-      DTR: { change: "2:00", sign: "-" },
-      DNL: { change: "4:00", sign: "-" },
+    [ACK.TRABAJO]: {
+      // Incluye Kamai, armado de portfolio, investigación y búsqueda de trabajo.
+      baseMax: "2:00",
+      DTR: { change: "1:00", sign: "-" },
+      DNL: { change: "2:00", sign: "-" },
     },
     [ACK.PROY]: {
       /* Cualquier cosa que sea para el progreso de algo personal: compras grandes,
-      salud, proyectos de programación, trámites, etc... */
+      salud, proyectos de cualquier tipo, trámites, etc... */
       baseMax: "3:00",
+      DTR: { change: "1:00", sign: "-" },
+      DNL: { change: "2:00", sign: "-" },
       DDE: { change: "2:00", sign: "-" },
     },
     [ACK.EJ]: {
@@ -66,25 +69,23 @@ export const COUNTERS_PARAMS = {
     },
     [ACK.VICIO]: {
       // Sólo entretenimiento no sexual.
-      baseMax: "2:00",
+      baseMax: "3:30",
       DTR: { change: "1:00", sign: "+" },
       DNL: { change: "2:00", sign: "+" },
-      DDE: { change: "0:10", sign: "-" },
+      DDE: { change: "0:30", sign: "-" },
     },
     [ACK.HOO]: {
       /* Mayormente tiempo con Hoo, ya sea divertido o de apoyo. Pero también incluye 
       conversación casual con los viejos o cualquier persona que no sean los chá. */
-      baseMax: "1:00",
+      baseMax: "1:15",
       DTR: { change: "0:30", sign: "+" },
       DNL: { change: "1:00", sign: "+" },
-      DDE: { change: "0:10", sign: "-" },
     },
     [ACK.PAJA]: {
       // Entretenimiento sexual. Transferible a Vicio, pero no de regreso.
-      baseMax: "1:00",
+      baseMax: "1:15",
       DTR: { change: "0:30", sign: "+" },
       DNL: { change: "1:00", sign: "+" },
-      DDE: { change: "0:10", sign: "-" },
     },
     [ACK.VIDA]: {
       // Necesidades del ser humano: comidas, infusiones, baño, higiene, descanso y simplemente
