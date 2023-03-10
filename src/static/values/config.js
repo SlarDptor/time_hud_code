@@ -58,12 +58,12 @@ export const COUNTERS_PARAMS = {
     [ACK.VICIO]: {
       // Sólo entretenimiento no sexual.
       baseMax: "4:30",
-      DNL: { change: "2:00", sign: "+" },
+      DNL: { change: "2:30", sign: "+" },
     },
     [ACK.HOO]: {
       /* Tiempo con Hoo, ya sea divertido o de apoyo.  */
       baseMax: "1:30",
-      DNL: { change: "1:00", sign: "+" },
+      DNL: { change: "1:30", sign: "+" },
     },
     // [ACK.PAJA]: {
     //   // Entretenimiento sexual. Transferible a Vicio, pero no de regreso.
