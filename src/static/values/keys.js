@@ -16,8 +16,9 @@ export const BREAKPOINTS = {
 export const ACTIVITY_CATEGORIES = {
   TRABAJO: "trabajo",
   PROY: "proy",
+  ESCR: "escr",
   TD: "td",
-  VICIO: "vicio",
+  RELAX: "relax",
   HOO: "hoo",
   // PAJA: "paja",
   VIDA: "vida",

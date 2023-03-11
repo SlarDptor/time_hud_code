@@ -23,8 +23,9 @@ export const BREAKPOINTS_WIDTHS = {
 export const CATEGORIES_NAMES = {
   [ACK.TRABAJO]: "Trabajo",
   [ACK.PROY]: "Proy.",
+  [ACK.ESCR]: "Escribir",
   [ACK.TD]: "T.D.",
-  [ACK.VICIO]: "Vicio",
+  [ACK.RELAX]: "Relax",
   [ACK.HOO]: "Hoo",
   // [ACK.PAJA]: "Paja",
   [ACK.VIDA]: "Vida",
@@ -42,27 +43,31 @@ export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.TRABAJO]: {
       // Incluye Kamai, armado de portfolio, investigación y búsqueda de trabajo.
-      baseMax: "1:00",
-      DNL: { change: "1:00", sign: "-" },
+      baseMax: "1:30",
+      DNL: { change: "1:30", sign: "-" },
     },
     [ACK.PROY]: {
       /* Cualquier cosa que sea para el progreso de algo personal: ejercicio, compras grandes,
       salud, proyectos de cualquier tipo, trámites, etc... */
       baseMax: "4:00",
-      DNL: { change: "3:00", sign: "-" },
+      DNL: { change: "2:30", sign: "-" },
+    },
+    [ACK.ESCR]: {
+      /* Escritura. Un caso separado de proyectos sólo para llevar control. */
+      baseMax: "0:30",
     },
     [ACK.TD]: {
       // Sólo cosas diarias/frecuentes como cocinar y limpiar/ordenar. Si sobra, va a Proy.
       baseMax: "2:00",
     },
-    [ACK.VICIO]: {
+    [ACK.RELAX]: {
       // Sólo entretenimiento no sexual.
-      baseMax: "4:30",
+      baseMax: "4:00",
       DNL: { change: "2:30", sign: "+" },
     },
     [ACK.HOO]: {
       /* Tiempo con Hoo, ya sea divertido o de apoyo.  */
-      baseMax: "1:30",
+      baseMax: "1:00",
       DNL: { change: "1:30", sign: "+" },
     },
     // [ACK.PAJA]: {
