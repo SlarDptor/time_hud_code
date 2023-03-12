@@ -1,5 +1,5 @@
 import moment from "moment";
-import { mapValues } from "lodash";
+import { cloneDeep, mapValues } from "lodash";
 
 import {
   COUNTERS_PARAMS,

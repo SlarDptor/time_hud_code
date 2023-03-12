@@ -76,7 +76,7 @@ const STYLES = {
 const BLANK_WAKE_RECORD = {
   time: null,
   name: "Levantarse",
-  categoryKey: ACK.VICIO,
+  categoryKey: ACK.RELAX,
 };
 
 export default RegistryWakeModal;
