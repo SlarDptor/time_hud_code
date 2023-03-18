@@ -49,8 +49,8 @@ export const COUNTERS_PARAMS = {
     [ACK.PROY]: {
       /* Cualquier cosa que sea para el progreso de algo personal: ejercicio, compras grandes,
       salud, proyectos de cualquier tipo, trámites, etc... */
-      baseMax: "3:30",
-      DNL: { change: "2:30", sign: "-" },
+      baseMax: "4:30",
+      DNL: { change: "3:30", sign: "-" },
     },
     [ACK.ESCR]: {
       /* Escritura. Un caso separado de proyectos sólo para llevar control. */
@@ -58,12 +58,12 @@ export const COUNTERS_PARAMS = {
     },
     [ACK.TD]: {
       // Sólo cosas diarias/frecuentes como cocinar y limpiar/ordenar. Si sobra, va a Proy.
-      baseMax: "2:00",
+      baseMax: "1:30",
     },
     [ACK.RELAX]: {
       // Sólo entretenimiento no sexual.
-      baseMax: "4:00",
-      DNL: { change: "2:30", sign: "+" },
+      baseMax: "3:30",
+      DNL: { change: "3:30", sign: "+" },
     },
     [ACK.HOO]: {
       /* Tiempo con Hoo, ya sea divertido o de apoyo.  */
