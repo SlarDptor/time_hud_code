@@ -49,12 +49,12 @@ export const COUNTERS_PARAMS = {
     [ACK.PROY]: {
       /* Cualquier cosa que sea para el progreso de algo personal: ejercicio, compras grandes,
       salud, proyectos de cualquier tipo, trámites, etc... */
-      baseMax: "4:00",
+      baseMax: "3:30",
       DNL: { change: "2:30", sign: "-" },
     },
     [ACK.ESCR]: {
       /* Escritura. Un caso separado de proyectos sólo para llevar control. */
-      baseMax: "0:30",
+      baseMax: "1:00",
     },
     [ACK.TD]: {
       // Sólo cosas diarias/frecuentes como cocinar y limpiar/ordenar. Si sobra, va a Proy.
