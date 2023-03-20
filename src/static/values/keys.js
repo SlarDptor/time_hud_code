@@ -17,10 +17,10 @@ export const ACTIVITY_CATEGORIES = {
   TRABAJO: "trabajo",
   PROY: "proy",
   ESCR: "escr",
+  WD: "wd",
   TD: "td",
   RELAX: "relax",
   HOO: "hoo",
-  // PAJA: "paja",
   VIDA: "vida",
 };
 

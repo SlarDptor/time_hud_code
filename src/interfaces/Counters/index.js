@@ -327,6 +327,7 @@ const MAX_IS = {
   [ACK.PROY]: "goal",
   [ACK.ESCR]: "goal",
 
+  [ACK.WD]: "limit",
   [ACK.TD]: "limit",
   [ACK.RELAX]: "limit",
   [ACK.HOO]: "limit",
