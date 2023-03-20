@@ -7,7 +7,7 @@ export const TYPES = mapValues({
     
   CLEAN: 0, //Simple Actions
 
-  REPLACE: 0, ADD_RECORD: 0, REMOVE_RECORD: 0, SET_RECORD: 0, //Parameterized Actions
+  REPLACE: 0, ADD_RECORD: 0, REMOVE_RECORD: 0, SET_RECORD: 0, OFFSET: 0 //Parameterized Actions
 
 }, (v, k) => `${STATE_NAME.toUpperCase()}_${k}` );
 
@@ -31,6 +31,10 @@ const ACTION_CREATORS = {
     type: TYPES.SET_RECORD,
     params: { recordIndex, newRecord },
   }),
+  offset: (minutes) => ({
+    type: TYPES.OFFSET,
+    params: { minutes },
+  }),
 };
 
 export default ACTION_CREATORS;
@@ -44,4 +48,5 @@ export default ACTION_CREATORS;
  * @property {(newRecord) => any} addRecord Adds a new Time Record to the registry.
  * @property {(recordIndex) => any} removeRecord Removes the Time Record at the specified index from the registry.
  * @property {(recordIndex, newRecord) => any} setRecord Sets the TimeRecord at the specified index in the registry.
+ * @property {(minutes) => any} offset Moves all the registry for the specified minutes.
  */

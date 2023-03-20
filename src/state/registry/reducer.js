@@ -21,6 +21,8 @@ export default function reducer(prevState = defaultState.registry, action) {
       return handlers.removeRecord(action.params);
     case TYPES.SET_RECORD:
       return handlers.setRecord(action.params);
+    case TYPES.OFFSET:
+      return handlers.offset(action.params);
 
     default:
       throw unhandledActionError(STATE_NAME, action.type);

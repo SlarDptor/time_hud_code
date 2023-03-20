@@ -335,6 +335,6 @@ const MAX_IS = {
 };
 
 const CHANGE_MINUTES = 5;
-const CHANGE_TIME = ops.toTime(CHANGE_MINUTES);
+const CHANGE_TIME = ops.minutesToTime(CHANGE_MINUTES);
 
 export default CountersInterface;

@@ -2,10 +2,16 @@ import React from "react";
 import { BiPlus } from "react-icons/bi";
 import { IoReloadOutline, IoWarningOutline, IoBed } from "react-icons/io5";
 import { BsDownload, BsUpload } from "react-icons/bs";
+import { AiOutlineFieldTime } from "react-icons/ai";
 
 import { useGeneralStateReader, useGeneralStateUpdator } from "@state/hooks";
 import { ops } from "@static/functions";
-import { CuteModal, displayCuteAlert, useModalState } from "@common/index";
+import {
+  CuteModal,
+  displayCuteAlert,
+  useModalState,
+  CuteButton,
+} from "@common/index";
 
 import RecordModal from "./RecordModal";
 import WakeModal from "./WakeModal";
@@ -51,6 +57,10 @@ function RegistryInterface() {
       },
       customStyles: STYLES.reloadAlert,
     });
+  }
+
+  function offset(minutes) {
+    updateGS.registry.offset(minutes);
   }
 
   function exportText() {
@@ -156,6 +166,30 @@ function RegistryInterface() {
             <BsUpload className={STYLES.outButtonIcon} /> Importar
           </button>
         </div>
+
+        {!isEmpty && (
+          <div className={STYLES.offset}>
+            <p className={STYLES.offsetTitle}>Desfasar Registro</p>
+            <CuteButton
+              Icon={AiOutlineFieldTime}
+              color="indigo"
+              colorStrength="lighter"
+              size="smaller"
+              onClick={() => offset(15)}
+            >
+              + 15 mins
+            </CuteButton>
+            <CuteButton
+              Icon={AiOutlineFieldTime}
+              color="indigo"
+              colorStrength="lighter"
+              size="smaller"
+              onClick={() => offset(-15)}
+            >
+              - 15 mins
+            </CuteButton>
+          </div>
+        )}
       </div>
 
       {!isEmpty && (
@@ -201,6 +235,9 @@ const STYLES = {
   outButtonsCt: "flex justify-center mt-4 pt-8 border-t-1 border-emerald-400",
   outButton: "flex mx-2 justify-center items-center px-4 border-1 border-slate-300 py-2 rounded-md text-slate-500 focus:bg-slate-500 focus:text-slate-100",
   outButtonIcon: "mr-2 text-xl",
+
+  offset: "mt-8 flex justify-center relative px-4 py-6 border-1 border-slate-200 rounded-md",
+  offsetTitle: "absolute text-sm text-light text-sky-600 px-4 bg-white -top-3",
 
   bottom: "fixed w-screen bottom-0 left-0 py-2 px-4 bg-slate-100 border-t-1 border-slate-200 text-lg text-light text-center tracking-wide text-slate-500",
   endTime: "text-yellow-600",
