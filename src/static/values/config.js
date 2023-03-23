@@ -24,7 +24,6 @@ export const CATEGORIES_NAMES = {
   [ACK.TRABAJO]: "Trabajo",
   [ACK.PROY]: "Proy.",
   [ACK.ESCR]: "Escribir",
-  [ACK.WD]: "W. Def.",
   [ACK.TD]: "T.D.",
   [ACK.RELAX]: "Relax",
   [ACK.HOO]: "Hoo",
@@ -51,8 +50,8 @@ export const COUNTERS_PARAMS = {
     [ACK.PROY]: {
       /* Cualquier cosa que sea para el progreso de algo personal: ejercicio, compras,
       salud, proyectos de cualquier tipo, investigación, trámites, cosas domésticas, etc... */
-      baseMax: "2:00",
-      DNL: { change: "0:30", sign: "-" },
+      baseMax: "2:15",
+      DNL: { change: "1:00", sign: "-" },
       DDN: { change: "1:00", sign: "+" },
     },
     [ACK.ESCR]: {
@@ -61,30 +60,24 @@ export const COUNTERS_PARAMS = {
       DNL: { change: "0:45", sign: "-" },
       DDN: { change: "0:15", sign: "-" },
     },
-    [ACK.WD]: {
-      /* Work Defense. Un caso separado de proyectos para ponerle límite. */
-      baseMax: "1:15",
-      DNL: { change: "1:15", sign: "-" },
-      DDN: { change: "0:15", sign: "-" },
-    },
     [ACK.TD]: {
       // Sólo cosas diarias/frecuentes como cocinar y limpiar/ordenar. Si sobra, va a Proy.
       baseMax: "1:30",
     },
     [ACK.RELAX]: {
       // Entretenimiento y relajación.
-      baseMax: "4:30",
-      DNL: { change: "3:30", sign: "+" },
+      baseMax: "6:00",
+      DNL: { change: "2:00", sign: "+" },
     },
     [ACK.HOO]: {
       /* Tiempo con Hoo, ya sea divertido o de apoyo.  */
       baseMax: "1:30",
-      DNL: { change: "1:30", sign: "+" },
+      DNL: { change: "1:15", sign: "+" },
     },
     [ACK.VIDA]: {
       // Necesidades del ser humano: comidas, infusiones, baño, higiene, descanso y simplemente
       // que los cambios no son instantáneos.
-      baseMax: "3:00",
+      baseMax: "2:30",
     },
   },
 };
