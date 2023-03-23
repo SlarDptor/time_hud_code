@@ -17,10 +17,7 @@ export const ACTIVITY_CATEGORIES = {
   TRABAJO: "trabajo",
   PROY: "proy",
   ESCR: "escr",
-  TD: "td",
   RELAX: "relax",
-  HOO: "hoo",
-  VIDA: "vida",
 };
 
 export const INTERFACES = {
