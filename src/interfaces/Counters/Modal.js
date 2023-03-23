@@ -4,7 +4,10 @@ import { MdTimer, MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { useGeneralStateReader } from "@state/hooks";
 import { ops } from "@static/functions";
 
-import { CATEGORIES_NAMES } from "@static/values/config";
+import {
+  CATEGORIES_NAMES,
+  CATEGORIES_DESCRIPTIONS,
+} from "@static/values/config";
 
 function CountersModal({ categoryKey }) {
   const [order, setOrder] = React.useState("decreasing");
@@ -34,6 +37,10 @@ function CountersModal({ categoryKey }) {
           {CATEGORIES_NAMES[categoryKey]}
         </span>
       </div>
+
+      <p className={STYLES.description}>
+        {CATEGORIES_DESCRIPTIONS[categoryKey]}
+      </p>
 
       <div className={STYLES.listCt}>
         <div className={STYLES.header}>
@@ -78,6 +85,7 @@ function CountersModal({ categoryKey }) {
 //prettier-ignore
 const STYLES = {
   title: "flex justify-center items-center text-light text-slate-600 text-xl ",
+  description: "text-center text-sm text-light text-slate-500 mt-4",
   categoryName: "text-sky-500 ml-1",
   icon: "mr-2 text-2xl ",
 

@@ -324,7 +324,7 @@ function RecalculateMaxesCheckboxes({
 //Tells if the maximum amount is a goal or a limit
 const MAX_IS = {
   [ACK.TRABAJO]: "goal",
-  [ACK.PROY]: "goal",
+  [ACK.PERSONAL]: "goal",
   [ACK.ESCR]: "goal",
 
   [ACK.WD]: "limit",

@@ -15,8 +15,9 @@ export const BREAKPOINTS = {
 
 export const ACTIVITY_CATEGORIES = {
   TRABAJO: "trabajo",
-  PROY: "proy",
-  ESCR: "escr",
+  PERSONAL: "personal",
+  HISTORIAS: "historias",
+  RESEARCH: "research",
   RELAX: "relax",
 };
 

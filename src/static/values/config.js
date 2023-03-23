@@ -22,14 +22,26 @@ export const BREAKPOINTS_WIDTHS = {
 
 export const CATEGORIES_NAMES = {
   [ACK.TRABAJO]: "Trabajo",
-  [ACK.PROY]: "Proy.",
-  [ACK.ESCR]: "Escribir",
+  [ACK.PERSONAL]: "Personal",
+  [ACK.HISTORIAS]: "Historias",
+  [ACK.RESEARCH]: "Research",
   [ACK.RELAX]: "Relax",
+};
+
+export const CATEGORIES_DESCRIPTIONS = {
+  [ACK.TRABAJO]:
+    "Kamai los martes, miércoles y 1/2 viernes. Portfolio y búsqueda de trabajo los lunes, jueves y 1/2 viernes.",
+  [ACK.PERSONAL]:
+    "Cuidado y responsabilidades personales: tareas domésticas, ejercicio, compras, ayudar a hoo, salud, trámites, etc...",
+  [ACK.HISTORIAS]: "Escritura y progreso hacia la creación de historias.",
+  [ACK.RESEARCH]: "Investigación tecnológica y actualización de herramientas.",
+  [ACK.RELAX]:
+    "Vida, relajación en general, tiempo con hoo y entretenimiento. No olvides disfrutar todo en el día; el vicio siempre estará ahí.",
 };
 
 export const ALTERNATE_DAYS = {
   [PTK.STANDARD]: {
-    DNL: "Día No Laboral", //Día sin trabajo.
+    DNL: "Día No Laboral", //Día sin trabajo oficial pero sí enfocado en proyectos.
   },
 };
 
@@ -38,22 +50,20 @@ export const ALTERNATE_DAYS = {
 export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.TRABAJO]: {
-      // Incluye Kamai, armado de portfolio, investigación y búsqueda de trabajo.
       baseMax: "1:30",
       DNL: { change: "1:30", sign: "-" },
     },
-    [ACK.PROY]: {
-      /* Cualquier cosa que sea para el progreso de algo personal: ejercicio, compras, ayudar a hoo,
-      salud, proyectos de cualquier tipo, investigación, trámites, cosas domésticas, etc... */
-      baseMax: "5:30",
+    [ACK.PERSONAL]: {
+      baseMax: "4:00",
     },
-    [ACK.ESCR]: {
-      /* Escritura. Un caso separado de proyectos para poner meta mínima. */
+    [ACK.HISTORIAS]: {
       baseMax: "0:00",
       DNL: { change: "1:30", sign: "+" },
     },
+    [ACK.RESEARCH]: {
+      baseMax: "1:30",
+    },
     [ACK.RELAX]: {
-      // Vida, entretenimiento, hoo y relajación.
       baseMax: "9:00",
     },
   },
