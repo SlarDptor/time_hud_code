@@ -80,9 +80,10 @@ function CountersInterface() {
     modal.open({ categoryKey });
   }
 
-  const displayingCounters = Object.keys(gs.counters).filter(
-    (ctg) => !ops.isZeroTime(gs.counters[ctg].max)
-  );
+  // const displayingCounters = Object.keys(gs.counters).filter(
+  //   (ctg) => !ops.isZeroTime(gs.counters[ctg].max)
+  // );
+  const displayingCounters = Object.keys(gs.counters);
 
   return (
     <>
