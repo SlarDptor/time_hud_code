@@ -325,13 +325,9 @@ function RecalculateMaxesCheckboxes({
 const MAX_IS = {
   [ACK.TRABAJO]: "goal",
   [ACK.PERSONAL]: "goal",
-  [ACK.ESCR]: "goal",
-
-  [ACK.WD]: "limit",
-  [ACK.TD]: "limit",
+  [ACK.RESEARCH]: "goal",
+  [ACK.HISTORIAS]: "goal",
   [ACK.RELAX]: "limit",
-  [ACK.HOO]: "limit",
-  [ACK.VIDA]: "limit",
 };
 
 const CHANGE_MINUTES = 5;
