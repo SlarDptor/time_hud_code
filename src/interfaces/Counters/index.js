@@ -328,6 +328,7 @@ const MAX_IS = {
   [ACK.PERSONAL]: "goal",
   [ACK.RESEARCH]: "goal",
   [ACK.HISTORIAS]: "goal",
+  [ACK.TOOLS]: "limit",
   [ACK.RELAX]: "limit",
 };
 
