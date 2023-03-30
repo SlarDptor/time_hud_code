@@ -18,7 +18,6 @@ export const ACTIVITY_CATEGORIES = {
   PERSONAL: "personal",
   HISTORIAS: "historias",
   RESEARCH: "research",
-  TOOLS: "tools",
   RELAX: "relax",
 };
 
