@@ -39,8 +39,7 @@ export const CATEGORIES_DESCRIPTIONS = {
 
 export const ALTERNATE_DAYS = {
   [PTK.STANDARD]: {
-    DNL: "Día No Laboral", //Día sin trabajo oficial pero sí enfocado en proyectos.
-    DDN: "Día De Natación", //Natación consume bastante tiempo extra.
+    DDN: "Día De Natación",
   },
 };
 
@@ -49,25 +48,21 @@ export const ALTERNATE_DAYS = {
 export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.TRABAJO]: {
-      baseMax: "2:30",
-      DNL: { change: "2:30", sign: "-" },
+      baseMax: "0:30",
     },
     [ACK.PERSONAL]: {
-      baseMax: "2:30",
+      baseMax: "3:00",
       DDN: { change: "1:30", sign: "+" },
-      DNL: { change: "0:30", sign: "+" },
     },
     [ACK.HISTORIAS]: {
-      baseMax: "0:00",
-      DNL: { change: "2:00", sign: "+" },
+      baseMax: "0:30",
     },
     [ACK.RESEARCH]: {
-      baseMax: "1:00",
-      DDN: { change: "0:30", sign: "-" },
+      baseMax: "0:15",
     },
     [ACK.RELAX]: {
-      baseMax: "10:00",
-      DDN: { change: "1:00", sign: "-" },
+      baseMax: "13:45",
+      DDN: { change: "1:30", sign: "-" },
     },
   },
 };

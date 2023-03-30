@@ -1,6 +1,6 @@
 {
   "name": "time_hud",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "private": true,
   "homepage": "https://slardptor.github.io/time_hud",
   "dependencies": {
