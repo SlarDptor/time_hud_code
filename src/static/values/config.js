@@ -61,7 +61,7 @@ export const COUNTERS_PARAMS = {
       baseMax: "0:15",
     },
     [ACK.RELAX]: {
-      baseMax: "13:45",
+      baseMax: "11:45",
       DDN: { change: "1:30", sign: "-" },
     },
   },
