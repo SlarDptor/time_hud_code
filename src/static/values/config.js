@@ -23,7 +23,7 @@ export const BREAKPOINTS_WIDTHS = {
 export const CATEGORIES_NAMES = {
   [ACK.TRABAJO]: "Trabajo",
   [ACK.PERSONAL]: "Personal",
-  [ACK.HISTORIAS]: "Historias",
+  // [ACK.HISTORIAS]: "Historias",
   [ACK.RESEARCH]: "Research",
   [ACK.RELAX]: "Relax",
 };
@@ -32,7 +32,7 @@ export const CATEGORIES_NAMES = {
 export const CATEGORIES_DESCRIPTIONS = {
   [ACK.TRABAJO]: "Portfolio y búsqueda de trabajo.",
   [ACK.PERSONAL]: "Cuidado y responsabilidades personales: tareas domésticas, ejercicio, compras, ayudar a hoo, salud, trámites, etc...",
-  [ACK.HISTORIAS]: "Escritura y progreso hacia la creación de historias.",
+  // [ACK.HISTORIAS]: "Escritura y progreso hacia la creación de historias.",
   [ACK.RESEARCH]: "Investigación tecnológica y progreso en ámbitos desconocidos.",
   [ACK.RELAX]: "Vida, relajación en general, proyectos divertidos, tiempo con hoo y entretenimiento. No olvides disfrutar todo en el día; el vicio siempre estará ahí.",
 };
