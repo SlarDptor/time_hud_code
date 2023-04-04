@@ -48,14 +48,11 @@ export const ALTERNATE_DAYS = {
 export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.TRABAJO]: {
-      baseMax: "0:30",
+      baseMax: "1:00",
     },
     [ACK.PERSONAL]: {
       baseMax: "3:00",
       DDN: { change: "1:30", sign: "+" },
-    },
-    [ACK.HISTORIAS]: {
-      baseMax: "0:30",
     },
     [ACK.RESEARCH]: {
       baseMax: "0:15",
