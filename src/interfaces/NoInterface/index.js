@@ -12,7 +12,7 @@ function NoInterfaceInterface() {
 
       <p className={STYLES.version}>v {VERSION}</p>
 
-      <p className={STYLES.dedication}>by SlarDptor, for Juampi</p>
+      <p className={STYLES.dedication}>by SlarDptor, for myself</p>
     </>
   );
 }

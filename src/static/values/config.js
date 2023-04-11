@@ -37,7 +37,7 @@ export const CATEGORIES_DESCRIPTIONS = {
 
 export const ALTERNATE_DAYS = {
   [PTK.STANDARD]: {
-    DDN: "Día De Natación",
+    DDD: "Día De Descanso",
   },
 };
 
@@ -47,15 +47,19 @@ export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.TRABAJO]: {
       baseMax: "6:00",
+      DDD: { change: "6:00", sign: "-" },
     },
     [ACK.PERSONAL]: {
       baseMax: "2:00",
+      DDD: { change: "3:00", sign: "+" },
     },
     [ACK.RESEARCH]: {
       baseMax: "2:00",
+      DDD: { change: "2:00", sign: "-" },
     },
     [ACK.RELAX]: {
       baseMax: "6:00",
+      DDD: { change: "5:00", sign: "+" },
     },
   },
 };
