@@ -23,18 +23,16 @@ export const BREAKPOINTS_WIDTHS = {
 export const CATEGORIES_NAMES = {
   [ACK.TRABAJO]: "Trabajo",
   [ACK.PERSONAL]: "Personal",
-  // [ACK.HISTORIAS]: "Historias",
   [ACK.RESEARCH]: "Research",
   [ACK.RELAX]: "Relax",
 };
 
 //prettier-ignore
 export const CATEGORIES_DESCRIPTIONS = {
-  [ACK.TRABAJO]: "Portfolio y búsqueda de trabajo.",
-  [ACK.PERSONAL]: "Cuidado y responsabilidades personales: tareas domésticas, ejercicio, compras, ayudar a hoo, salud, trámites, etc...",
-  // [ACK.HISTORIAS]: "Escritura y progreso hacia la creación de historias.",
+  [ACK.TRABAJO]: "Trabajo diario.",
+  [ACK.PERSONAL]: "Cuidado y responsabilidades personales.",
   [ACK.RESEARCH]: "Investigación tecnológica y progreso en ámbitos desconocidos.",
-  [ACK.RELAX]: "Vida, relajación en general, proyectos divertidos, tiempo con hoo y entretenimiento. No olvides disfrutar todo en el día; el vicio siempre estará ahí.",
+  [ACK.RELAX]: "Vida, relajación en general, proyectos divertidos y entretenimiento.",
 };
 
 export const ALTERNATE_DAYS = {
@@ -48,18 +46,16 @@ export const ALTERNATE_DAYS = {
 export const COUNTERS_PARAMS = {
   [PTK.STANDARD]: {
     [ACK.TRABAJO]: {
-      baseMax: "1:00",
+      baseMax: "6:00",
     },
     [ACK.PERSONAL]: {
-      baseMax: "3:00",
-      DDN: { change: "1:30", sign: "+" },
+      baseMax: "2:00",
     },
     [ACK.RESEARCH]: {
-      baseMax: "0:15",
+      baseMax: "2:00",
     },
     [ACK.RELAX]: {
-      baseMax: "11:45",
-      DDN: { change: "1:30", sign: "-" },
+      baseMax: "6:00",
     },
   },
 };
